@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.minitask_gui.SubCalSceneController">
+   <children>
+      <BorderPane prefHeight="540.0" prefWidth="700.0">
+         <top>
+            <StackPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #c2c1c1;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="headerField" text="Salary for July 2022" textFill="#022246">
+                     <font>
+                        <Font name="Forte" size="22.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="200.0" prefWidth="700.0">
+                     <children>
+                        <ImageView fx:id="btnBack" fitHeight="65.0" fitWidth="48.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/icons8_back_to_80px_1.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </StackPane>
+         </top>
+         <left>
+            <AnchorPane prefHeight="486.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="35.0" layoutY="14.0" prefHeight="200.0" prefWidth="125.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="38.0" layoutY="3.0" text="Week 1">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField1" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField1" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="6.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField1" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField1" layoutX="75.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField1" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField1" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField1" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <CheckBox fx:id="openCheckbox" layoutX="35.0" layoutY="440.0" mnemonicParsing="false" selected="true" text="Open salary file after calculating" />
+                  <Button id="btn" fx:id="createBtn" layoutX="575.0" layoutY="444.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" stylesheets="@../css/style.css" text="CREATE" />
+                  <VBox layoutX="195.0" layoutY="14.0" prefHeight="200.0" prefWidth="125.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="38.0" layoutY="3.0" text="Week 2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField2" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField2" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField2" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField2" layoutX="75.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField2" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField2" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField2" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="355.0" layoutY="14.0" prefHeight="200.0" prefWidth="125.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="29.0" layoutY="3.0" text="Week 1+2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField12" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField12" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField12" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField12" layoutX="75.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField12" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField12" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField12" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="35.0" layoutY="226.0" prefHeight="200.0" prefWidth="125.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="38.0" layoutY="3.0" text="Week 3">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField3" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField3" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField3" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField3" layoutX="75.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField3" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField3" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField3" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="195.0" layoutY="226.0" prefHeight="200.0" prefWidth="125.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="38.0" layoutY="3.0" text="Week 4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField4" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField4" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField4" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField4" layoutX="75.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField4" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField4" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField4" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="355.0" layoutY="226.0" prefHeight="200.0" prefWidth="125.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="29.0" layoutY="3.0" text="Week 3+4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField34" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField34" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField34" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField34" layoutX="75.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField34" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField34" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField34" layoutX="74.0" layoutY="2.0" prefHeight="19.0" prefWidth="50.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="512.0" layoutY="121.0" prefHeight="200.0" prefWidth="155.0" styleClass="valueBox" stylesheets="@../css/style.css">
+                     <children>
+                        <AnchorPane prefHeight="25.0" prefWidth="169.0">
+                           <children>
+                              <Label layoutX="28.0" layoutY="3.0" text="Week 1+2+3+4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0" />
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Cash:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cashField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Card:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="cardField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Venmo:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="venmoField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Zelle">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="zelleField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Take In:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftTakeField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Gift Sell:">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="giftSellField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="23.0" prefWidth="169.0">
+                           <children>
+                              <Label alignment="CENTER" layoutY="2.0" prefHeight="19.0" prefWidth="74.0" text="Total:" textFill="#890d0d">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalField1234" layoutX="80.0" layoutY="2.0" prefHeight="19.0" prefWidth="65.0" text="10.000">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

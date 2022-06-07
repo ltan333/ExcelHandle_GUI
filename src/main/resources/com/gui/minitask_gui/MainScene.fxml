@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.minitask_gui.MainSceneController">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="600.0" prefWidth="900.0" style="-fx-focus-traversable: false;" stylesheets="@../css/style.css">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="900.0" style="-fx-background-color: #8e9bdc;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="51.0" prefWidth="212.0" text="SALARY MANAGEMENT" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Book Antiqua Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="60.0" prefWidth="673.0">
+                     <children>
+                        <ImageView id="a" fx:id="closeBtn" fitHeight="29.0" fitWidth="25.0" layoutX="641.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="minimizeBtn" fitHeight="29.0" fitWidth="25.0" layoutX="605.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/minimize.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+         </top>
+         <left>
+            <VBox prefHeight="534.0" prefWidth="200.0" style="-fx-background-color: #6b739e;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button id="btn" fx:id="createBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="200.0" stylesheets="@../css/style.css" text="Create Daily Earning" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/createDailyEarning.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Separator prefWidth="200.0" />
+                  <Button id="mainBtn" fx:id="calculateBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="200.0" stylesheets="@../css/style.css" text="Calculate Salary" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/cal_salary.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Button>
+                  <Separator prefWidth="200.0" />
+                  <AnchorPane prefHeight="400.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="39.0" layoutY="264.0" text="Root Directory" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icon/folder.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="rootPathField" alignment="TOP_LEFT" layoutX="7.0" layoutY="303.0" prefHeight="60.0" prefWidth="183.0" styleClass="link" stylesheets="@../css/style.css" text="D:\Data\Java_IntelliJ\MiniTask_GUI\src\main\resources\com\gui\icon" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="changeBtn" layoutX="69.0" layoutY="364.0" mnemonicParsing="false" style="-fx-focus-traversable: false;" stylesheets="@../css/style.css" text="Change">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

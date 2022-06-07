@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.minitask_gui.ManualSceneController">
+   <children>
+      <BorderPane prefHeight="540.0" prefWidth="700.0">
+         <top>
+            <StackPane prefHeight="62.0" prefWidth="700.0" styleClass="title" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="headerField" alignment="CENTER" prefHeight="62.0" prefWidth="638.0" text="HEADER" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Forte" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+         </top>
+         <center>
+            <ScrollPane id="sc" fx:id="scrollpaneContent" prefHeight="200.0" prefWidth="200.0" style="-fx-focus-traversable: false;" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+               <content>
+                  <AnchorPane prefHeight="474.0" prefWidth="690.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="#Day la title">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="16.0" layoutY="42.0" prefHeight="18.0" prefWidth="148.0" text="- Day la content ne ne ne" textAlignment="JUSTIFY" />
+                     </children>
+                  </AnchorPane>
+               </content></ScrollPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

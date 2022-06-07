@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.minitask_gui.SubCreateSceneController">
+   <children>
+      <BorderPane prefHeight="540.0" prefWidth="710.0">
+         <top>
+            <StackPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #c2c1c1;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="headerField" text="Create earning for July 2022" textFill="#022246">
+                     <font>
+                        <Font name="Forte" size="22.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="btnBack" fitHeight="65.0" fitWidth="48.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icon/icons8_back_to_80px_1.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </StackPane>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="70.0" prefWidth="710.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="129.0" layoutY="11.0" prefHeight="25.0" prefWidth="575.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="dayField11" alignment="CENTER" prefHeight="19.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField12" alignment="CENTER" prefHeight="14.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField13" alignment="CENTER" prefHeight="0.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField14" alignment="CENTER" prefHeight="0.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField15" alignment="CENTER" prefHeight="0.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField16" alignment="CENTER" prefHeight="0.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField17" alignment="CENTER" prefHeight="0.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label layoutX="14.0" layoutY="14.0" text="Week 1 (7 days):">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="39.0" layoutY="51.0" text="Fill Cells With: ">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <RadioButton layoutX="137.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Blank Values">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="fillstyle1" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton layoutX="244.0" layoutY="52.0" mnemonicParsing="false" text="Zero" toggleGroup="$fillstyle1" />
+                        <RadioButton layoutX="308.0" layoutY="52.0" mnemonicParsing="false" text="Random" toggleGroup="$fillstyle1" />
+                     </children>
+                  </AnchorPane>
+                  <Separator prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Separator>
+                  <AnchorPane prefHeight="70.0" prefWidth="710.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="129.0" layoutY="11.0" prefHeight="26.0" prefWidth="575.0" spacing="8.0">
+                           <children>
+                              <Label fx:id="dayField21" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField22" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField23" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField24" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField25" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField26" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField27" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField28" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label layoutX="14.0" layoutY="14.0" text="Week 2 (8 days):">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="39.0" layoutY="51.0" text="Fill Cells With: ">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <RadioButton layoutX="137.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Blank Values">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="fillstyle2" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton layoutX="244.0" layoutY="52.0" mnemonicParsing="false" text="Zero" toggleGroup="$fillstyle2" />
+                        <RadioButton layoutX="308.0" layoutY="52.0" mnemonicParsing="false" text="Random" toggleGroup="$fillstyle2" />
+                     </children>
+                  </AnchorPane>
+                  <Separator prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Separator>
+                  <AnchorPane prefHeight="70.0" prefWidth="710.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="129.0" layoutY="12.0" prefHeight="25.0" prefWidth="575.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="dayField31" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField32" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField33" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField34" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField35" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField36" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField37" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label layoutX="14.0" layoutY="14.0" text="Week 3 (7 days):">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="39.0" layoutY="51.0" text="Fill Cells With: ">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <RadioButton layoutX="137.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Blank Values">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="fillstyle3" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton layoutX="244.0" layoutY="52.0" mnemonicParsing="false" text="Zero" toggleGroup="$fillstyle3" />
+                        <RadioButton layoutX="308.0" layoutY="52.0" mnemonicParsing="false" text="Random" toggleGroup="$fillstyle3" />
+                     </children>
+                  </AnchorPane>
+                  <Separator prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Separator>
+                  <AnchorPane prefHeight="70.0" prefWidth="710.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" layoutX="129.0" layoutY="11.0" prefHeight="25.0" prefWidth="575.0" spacing="1.0">
+                           <children>
+                              <Label fx:id="dayField41" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField42" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField43" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField44" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField45" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="01-01-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField46" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField47" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField48" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dayField49" alignment="CENTER" prefHeight="11.0" prefWidth="62.0" styleClass="daylabel" stylesheets="@../css/style.css" text="31-12-sun" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label fx:id="labelW4" layoutX="14.0" layoutY="14.0" text="Week 4 (7 days):">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="39.0" layoutY="51.0" text="Fill Cells With: ">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <RadioButton layoutX="137.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Blank Values">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="fillstyle4" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton layoutX="244.0" layoutY="52.0" mnemonicParsing="false" text="Zero" toggleGroup="$fillstyle4" />
+                        <RadioButton layoutX="308.0" layoutY="52.0" mnemonicParsing="false" text="Random" toggleGroup="$fillstyle4" />
+                     </children>
+                  </AnchorPane>
+                  <Separator prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Separator>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane id="sc" fx:id="scrollpaneEmployee" layoutX="103.0" layoutY="30.0" prefHeight="102.0" prefWidth="503.0" stylesheets="@../css/style.css" />
+                        <Label layoutX="14.0" layoutY="4.0" text="Select Emloyees: ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <CheckBox fx:id="checkBoxOpen" layoutX="103.0" layoutY="144.0" mnemonicParsing="false" selected="true" text="Open folder after create">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <Button id="btn" fx:id="createBtn" layoutX="514.0" layoutY="144.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" stylesheets="@../css/style.css" text="CREATE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

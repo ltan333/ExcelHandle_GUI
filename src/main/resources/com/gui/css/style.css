@@ -1,0 +1,72 @@
+.rootStage{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-radius: 10px;
+
+    -fx-border-radius: 10px;
+}
+#mainBtn{
+    -fx-background-color:     #6b739e;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-focus-color:  transparent;
+}
+
+#mainBtn:hover{
+    -fx-background-color:  #8e9bdc;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+#btn{
+    -fx-background-color:     #6b739e;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-focus-color:  transparent;
+}
+#btn:hover{
+    -fx-background-color:  #8e9bdc;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+
+}
+/*#btn:focused{*/
+/*    -fx-background-color: rgb(65, 82, 126);*/
+/*    -fx-font-size: 14px;*/
+/*}*/
+
+/*node.getStyleClass().add(DRAGGABLE_CLASS);*/
+.link:hover{
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+.title{
+    -fx-background-color: linear-gradient(to left, rgb(160, 176, 224), #31b985);
+    -fx-background-radius: 10px;
+
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(31, 31, 31, 0.72);
+}
+
+#sc{
+    -fx-focus-traversable: false;
+    -fx-focus-color: transparent;
+}
+
+.daylabel{
+    -fx-background-color: rgb(154, 172, 224);
+    -fx-background-radius: 10px;
+
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(74, 132, 148, 0.72);
+}
+
+.valueBox{
+    -fx-background-color: rgb(154, 172, 224);
+    -fx-background-radius: 10px;
+
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(138, 21, 141, 0.72);
+}
