@@ -1,9 +1,6 @@
 package com.gui.minitask_gui;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -28,15 +25,37 @@ public class TextFileHandler {
         return null;
     }
 
+    public static boolean checkManFileExist(){
+        String header = "<header> This Is Header";
+        String title = "<title> This is title";
+        String content = "<content> To change this manual, look for a file named Manual.txt located in the same directory as this program. Note: Please follow the syntax provided in the file for the contents to be displayed properly. Thank you. To change this manual, look for a file named Manual.txt located in the same directory as this program. Note: Please follow the syntax provided in the file for the contents to be displayed properly. Thank you. To change this manual, look for a file named Manual.txt located in the same directory as this program. Note: Please follow the syntax provided in the file for the contents to be displayed properly. Thank you.";
+
+        try {
+            if (!manualFile.exists()) {
+                manualFile.createNewFile();
+                FileWriter fw = new FileWriter(manualFile);
+                fw.write(header+"\n");
+                fw.write(title+"\n");
+                fw.write(content+"\n");
+                fw.write(content+"\n");
+                fw.write(title+"\n");
+                fw.write(content+"\n");
+                fw.flush();
+                fw.close();
+            }
+            return true;
+        }catch (IOException e){
+            CreateMessBox.popupBoxMess("Can't create Manual.txt!",2);
+            return false;
+        }
+    }
+
     public static Scanner readDataManFile(){
         try {
-            if(!manualFile.exists()){
-                manualFile.createNewFile();
-            }
+            checkManFileExist();
             FileInputStream fileInputStream = new FileInputStream(manualFile);
             Scanner scan = new Scanner(fileInputStream);
             return scan;
-
         } catch (FileNotFoundException e) {
             System.out.println("Can't read Payment_Calculation.txt");
             CreateMessBox.popupBoxMess("Can't read Manual.txt",2);
@@ -57,6 +76,7 @@ public class TextFileHandler {
                 contentList.add(content);
             }
         }
+        scan.close();
         return contentList;
     }
     public static Hashtable defineHowToCalculate(String employeeName){
