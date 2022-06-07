@@ -15,7 +15,7 @@ import java.time.YearMonth;
 import java.util.*;
 
 public class GlobalHandler {
-    public static final File configFile = new File(".\\src\\main\\resources\\com\\gui\\minitask_gui\\config.txt");
+    public static final File configFile = new File("config.txt");
     private static String rootDir = "";
     public static String day1 = "";
     public static int numOfDay1 = 0;
