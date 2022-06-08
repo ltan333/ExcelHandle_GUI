@@ -148,7 +148,6 @@ public class SubCreateSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initList();
         initConfig();
         GlobalHandler.mouseEnteredRotateEffect(btnBack, btnBack, 180);
         eBackBtnClicked();
@@ -173,11 +172,10 @@ public class SubCreateSceneController implements Initializable {
             GlobalHandler.writeFileWeekExcel(path, "Week 1", getSelectedEmployees(), getRadioSelected()[0], 1, 7);
             GlobalHandler.writeFileWeekExcel(path, "Week 2", getSelectedEmployees(), getRadioSelected()[1], 2, 8);
             GlobalHandler.writeFileWeekExcel(path, "Week 3", getSelectedEmployees(), getRadioSelected()[2], 3, 7);
-            try {
-                GlobalHandler.writeFileWeekExcel(path, "Week 4", getSelectedEmployees(), getRadioSelected()[3], 4, GlobalHandler.getNumberOfDayInMonth(new SimpleDateFormat("dd/MM/yyyy").parse("1/" + GlobalHandler.day1.split("/")[0] + "/" + GlobalHandler.day1.split("/")[1])));
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            }
+
+            int numOfMonth = GlobalHandler.numOfDay1-14-8;
+            GlobalHandler.writeFileWeekExcel(path, "Week 4", getSelectedEmployees(), getRadioSelected()[3], 4, numOfMonth);
+
 
             //Open folder if selected open checkbox.
             if (checkBoxOpen.isSelected()) {
@@ -192,14 +190,14 @@ public class SubCreateSceneController implements Initializable {
             saveEmployee();
 
             //Close detail window -> show previous window
-            MainSceneController.anchorPanesCreate.put(3, new AnchorPane());
+            MainSceneController.anchorPanesCreate.put(4, new AnchorPane());
         });
     }
 
     private void saveEmployee() {
         try {
             FileWriter fw = new FileWriter(GlobalHandler.configFile);
-            fw.write(GlobalHandler.getRootDir()+"Payment_Calculation.txt");
+            fw.write(GlobalHandler.getRootDir() + "Payment_Calculation.txt");
             fw.write("\n");
             for (CheckBox checkBox : tempName) {
                 fw.write(checkBox.getText() + ",");
@@ -289,6 +287,7 @@ public class SubCreateSceneController implements Initializable {
     }
 
     public void initConfig() {
+        initList();
         //Set Header
         headerField.setText("Creating daily earning for " + GlobalHandler.getMonthName(Integer.parseInt(GlobalHandler.day1.split("/")[0])) + " " + GlobalHandler.day1.split("/")[1]);
 

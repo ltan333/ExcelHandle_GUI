@@ -95,6 +95,30 @@ public class CreateSceneController implements Initializable {
     private ImageView createIcon12;
 
     @FXML
+    private ImageView monthIcon1;
+    @FXML
+    private ImageView monthIcon2;
+    @FXML
+    private ImageView monthIcon3;
+    @FXML
+    private ImageView monthIcon4;
+    @FXML
+    private ImageView monthIcon5;
+    @FXML
+    private ImageView monthIcon6;
+    @FXML
+    private ImageView monthIcon7;
+    @FXML
+    private ImageView monthIcon8;
+    @FXML
+    private ImageView monthIcon9;
+    @FXML
+    private ImageView monthIcon10;
+    @FXML
+    private ImageView monthIcon11;
+    @FXML
+    private ImageView monthIcon12;
+    @FXML
     private TextField yearField;
 //==================================================================================================//
     ArrayList<ImageView> icons = new ArrayList<>();
@@ -107,6 +131,7 @@ public class CreateSceneController implements Initializable {
         showCreatedIcon();
         eCreateBtnClicked();
         eRefeshBtnClicked();
+        eMonthIconBtn();
     }
 
 
@@ -180,6 +205,95 @@ public class CreateSceneController implements Initializable {
             MainSceneController.anchorPanesCreate.put(2,getCalScene());
         });
     }
+
+    public void eMonthIconBtn(){
+        monthIcon1.setOnMouseClicked(e->{
+            if(checkbox1.isSelected()){
+                checkbox1.setSelected(false);
+            }else {
+                checkbox1.setSelected(true);
+            }
+        });
+        monthIcon2.setOnMouseClicked(e->{
+            if(checkbox2.isSelected()){
+                checkbox2.setSelected(false);
+            }else {
+                checkbox2.setSelected(true);
+            }
+        });
+        monthIcon3.setOnMouseClicked(e->{
+            if(checkbox3.isSelected()){
+                checkbox3.setSelected(false);
+            }else {
+                checkbox3.setSelected(true);
+            }
+        });
+        monthIcon4.setOnMouseClicked(e->{
+            if(checkbox4.isSelected()){
+                checkbox4.setSelected(false);
+            }else {
+                checkbox4.setSelected(true);
+            }
+        });
+        monthIcon5.setOnMouseClicked(e->{
+            if(checkbox5.isSelected()){
+                checkbox5.setSelected(false);
+            }else {
+                checkbox5.setSelected(true);
+            }
+        });
+        monthIcon6.setOnMouseClicked(e->{
+            if(checkbox6.isSelected()){
+                checkbox6.setSelected(false);
+            }else {
+                checkbox6.setSelected(true);
+            }
+        });
+        monthIcon7.setOnMouseClicked(e->{
+            if(checkbox7.isSelected()){
+                checkbox7.setSelected(false);
+            }else {
+                checkbox7.setSelected(true);
+            }
+        });
+        monthIcon8.setOnMouseClicked(e->{
+            if(checkbox8.isSelected()){
+                checkbox8.setSelected(false);
+            }else {
+                checkbox8.setSelected(true);
+            }
+        });
+        monthIcon9.setOnMouseClicked(e->{
+            if(checkbox9.isSelected()){
+                checkbox9.setSelected(false);
+            }else {
+                checkbox9.setSelected(true);
+            }
+        });
+        monthIcon10.setOnMouseClicked(e->{
+            if(checkbox10.isSelected()){
+                checkbox10.setSelected(false);
+            }else {
+                checkbox10.setSelected(true);
+            }
+        });
+        monthIcon11.setOnMouseClicked(e->{
+            if(checkbox11.isSelected()){
+                checkbox11.setSelected(false);
+            }else {
+                checkbox11.setSelected(true);
+            }
+        });
+        monthIcon12.setOnMouseClicked(e->{
+            if(checkbox12.isSelected()){
+                checkbox12.setSelected(false);
+            }else {
+                checkbox12.setSelected(true);
+            }
+        });
+
+    }
+
 
     private void showCreatedIcon(){
         for (ImageView img:icons){

@@ -257,11 +257,11 @@ public class GlobalHandler {
                         break;
                     } else if (valueDefault == 1) {
                         Cell cell = row.createCell(cellIndex);
-                        cell.setCellValue("0");
+                        cell.setCellValue(0);
                         Cell cell1 = row.createCell(cellIndex + 1);
-                        cell1.setCellValue("0");
+                        cell1.setCellValue(0);
                         Cell cell2 = row.createCell(cellIndex + 2);
-                        cell2.setCellValue("0");
+                        cell2.setCellValue(0);
                         cellIndex += 3;
                     } else if (valueDefault == 2) {
                         Cell cell = row.createCell(cellIndex);
@@ -275,7 +275,7 @@ public class GlobalHandler {
                 }
                 Cell giftSellCell = row.createCell(cellIndex);
                 if (valueDefault == 1)
-                    giftSellCell.setCellValue("0");
+                    giftSellCell.setCellValue(0);
                 else if (valueDefault == 2)
                     giftSellCell.setCellValue(rd.nextInt(100) + 1);
 
@@ -343,7 +343,7 @@ public class GlobalHandler {
                 styleMatch.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
                 styleMatch.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 Cell cellMatch = row.createCell(21);
-                cellMatch.setCellValue("MATH");
+                cellMatch.setCellValue("MATCH");
                 cellMatch.setCellStyle(style);
 
                 //Match cell value
@@ -357,7 +357,7 @@ public class GlobalHandler {
                         break;
                     }else if(valueDefault == 1){
                         Cell cellValue = row.createCell(cellIndex+i);
-                        cellValue.setCellValue("0");
+                        cellValue.setCellValue(0);
                     }else if(valueDefault == 2){
                         Cell cellValue = row.createCell(cellIndex+i);
                         cellValue.setCellValue(rd.nextInt(100)+1);
@@ -378,7 +378,7 @@ public class GlobalHandler {
                         break;
                     }else if(valueDefault == 1){
                         Cell cellValue = row.createCell(cellIndex+i);
-                        cellValue.setCellValue("0");
+                        cellValue.setCellValue(0);
                     }else if(valueDefault == 2){
                         Cell cellValue = row.createCell(cellIndex+i);
                         cellValue.setCellValue(rd.nextInt(100)+1);
@@ -399,7 +399,7 @@ public class GlobalHandler {
                         break;
                     }else if(valueDefault == 1){
                         Cell cellValue = row.createCell(cellIndex+i);
-                        cellValue.setCellValue("0");
+                        cellValue.setCellValue(0);
                     }else if(valueDefault == 2){
                         Cell cellValue = row.createCell(cellIndex+i);
                         cellValue.setCellValue(rd.nextInt(100)+1);
@@ -420,7 +420,7 @@ public class GlobalHandler {
                         break;
                     }else if(valueDefault == 1){
                         Cell cellValue = row.createCell(cellIndex+i);
-                        cellValue.setCellValue("0");
+                        cellValue.setCellValue(0);
                     }else if(valueDefault == 2){
                         Cell cellValue = row.createCell(cellIndex+i);
                         cellValue.setCellValue(rd.nextInt(100)+1);
@@ -441,7 +441,7 @@ public class GlobalHandler {
                         break;
                     }else if(valueDefault == 1){
                         Cell cellValue = row.createCell(cellIndex+i);
-                        cellValue.setCellValue("0");
+                        cellValue.setCellValue(0);
                     }else if(valueDefault == 2){
                         Cell cellValue = row.createCell(cellIndex+i);
                         cellValue.setCellValue(rd.nextInt(100)+1);

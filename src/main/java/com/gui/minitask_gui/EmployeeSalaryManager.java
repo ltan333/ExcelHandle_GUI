@@ -194,7 +194,7 @@ public class EmployeeSalaryManager {
         int cellIndex = 2;
         while (true) {
             Row row = sheet.createRow(rowIndex);
-            if (rowIndex == 0 || rowIndex == 29) {
+            if (rowIndex == 0 || rowIndex == 30) {
                 for (Employee e : employees) {
                     Cell nameCell = row.createCell(cellIndex);
                     nameCell.setCellValue(e.getName().toUpperCase());
@@ -207,7 +207,7 @@ public class EmployeeSalaryManager {
                 Cell recepCell2 = row.createCell(cellIndex + 2);
                 recepCell2.setCellValue("Receptionist 2");
                 cellIndex = 2;
-            } else if ((rowIndex >= 1 && rowIndex <= 15) || (rowIndex >= 29 && rowIndex <= 29 + numberDateOfMonth - 15)) {
+            } else if ((rowIndex >= 1 && rowIndex <= 15) || (rowIndex >= 30 && rowIndex <= 30 + numberDateOfMonth - 15)) {
                 Cell dateCell = row.createCell(0);
                 Cell dayOfWeekCell = row.createCell(1);
                 dateCell.setCellValue(calendar.getTime());
@@ -385,7 +385,7 @@ public class EmployeeSalaryManager {
                     cellIndex += 3;
                 }
                 cellIndex = 2;
-            } else if (rowIndex == 30 + numberDateOfMonth - 14) {
+            } else if (rowIndex == 31 + numberDateOfMonth - 14) {
                 Cell totalCell = row.createCell(0);
                 totalCell.setCellValue("TOTAL");
                 for (Employee e : employees) {
@@ -401,7 +401,7 @@ public class EmployeeSalaryManager {
                 Cell totalAll = row.createCell(cellIndex);
                 totalAll.setCellValue(calculateTotalAllTwoWeek2(dateInFile, numberDateOfMonth));
                 cellIndex = 2;
-            } else if (rowIndex == 30 + numberDateOfMonth - 13) {
+            } else if (rowIndex == 31 + numberDateOfMonth - 13) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("50%");
                 for (Employee e : employees) {
@@ -414,7 +414,7 @@ public class EmployeeSalaryManager {
                 String colName = CellReference.convertNumToColString(c.getColumnIndex()) + (c.getRowIndex());
                 c.setCellFormula(colName + "*50/100");
                 cellIndex = 2;
-            } else if (rowIndex == 30 + numberDateOfMonth - 12) {
+            } else if (rowIndex == 31 + numberDateOfMonth - 12) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("60%");
                 for (Employee e : employees) {
@@ -427,7 +427,7 @@ public class EmployeeSalaryManager {
                 String colName = CellReference.convertNumToColString(c.getColumnIndex()) + (c.getRowIndex() - 1);
                 c.setCellFormula(colName + "*60/100");
                 cellIndex = 2;
-            } else if (rowIndex == 30 + numberDateOfMonth - 11) {
+            } else if (rowIndex == 31 + numberDateOfMonth - 11) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("10%");
                 for (Employee e : employees) {
@@ -442,7 +442,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             // Check row
-            else if (rowIndex == 30 + numberDateOfMonth - 9) {
+            else if (rowIndex == 31 + numberDateOfMonth - 9) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("CHECK");
                 for (Employee e : employees) {
@@ -456,7 +456,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             // Cash Without Tip row
-            else if (rowIndex == 30 + numberDateOfMonth - 8) {
+            else if (rowIndex == 31 + numberDateOfMonth - 8) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("Cash Without Tip");
                 for (Employee e : employees) {
@@ -470,7 +470,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             // 60% row
-            else if (rowIndex == 30 + numberDateOfMonth - 7) {
+            else if (rowIndex == 31 + numberDateOfMonth - 7) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("60%");
                 for (Employee e : employees) {
@@ -484,7 +484,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             // Check 2 row
-            else if (rowIndex == 30 + numberDateOfMonth - 6) {
+            else if (rowIndex == 31 + numberDateOfMonth - 6) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("Check 2");
                 for (Employee e : employees) {
@@ -498,7 +498,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             // 15% row
-            else if (rowIndex == 30 + numberDateOfMonth - 5) {
+            else if (rowIndex == 31 + numberDateOfMonth - 5) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("15%");
                 for (Employee e : employees) {
@@ -512,7 +512,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             // Cash Payment row
-            else if (rowIndex == 30 + numberDateOfMonth - 4) {
+            else if (rowIndex == 31 + numberDateOfMonth - 4) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("Cash Payment");
                 for (Employee e : employees) {
@@ -526,7 +526,7 @@ public class EmployeeSalaryManager {
                 cellIndex = 2;
             }
             //Total payment row
-            else if (rowIndex == 30 + numberDateOfMonth - 3) {
+            else if (rowIndex == 31 + numberDateOfMonth - 3) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("Total payment");
                 for (Employee e : employees) {

@@ -39,15 +39,15 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private BorderPane borderPane;
-//============================================================================//
-    public static ObservableMap<Integer,AnchorPane> anchorPanesCreate = FXCollections.observableHashMap();
-    public static ObservableMap<Integer,AnchorPane> anchorPanesCal = FXCollections.observableHashMap();
+    //============================================================================//
+    public static ObservableMap<Integer, AnchorPane> anchorPanesCreate = FXCollections.observableHashMap();
+    public static ObservableMap<Integer, AnchorPane> anchorPanesCal = FXCollections.observableHashMap();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        GlobalHandler.mouseEnteredRotateEffect(closeBtn,closeBtn,180);
-        GlobalHandler.mouseEnteredRotateEffect(minimizeBtn,minimizeBtn,180);
+        GlobalHandler.mouseEnteredRotateEffect(closeBtn, closeBtn, 180);
+        GlobalHandler.mouseEnteredRotateEffect(minimizeBtn, minimizeBtn, 180);
         eCloseAndMinimizeClicked();
         eCreateBtnClicked();
         eCalculateBtnClicked();
@@ -58,7 +58,7 @@ public class MainSceneController implements Initializable {
         eRootPathClicked();
     }
 
-    public void eChangeBtnClicked(){
+    public void eChangeBtnClicked() {
         changeBtn.setOnAction(e -> {
             Stage stage1 = (Stage) createBtn.getScene().getWindow();
             stage1.close();
@@ -78,9 +78,9 @@ public class MainSceneController implements Initializable {
             stage.show();
         });
     }
-    
-    public void eRootPathClicked(){
-        rootPathField.setOnMouseClicked(e->{
+
+    public void eRootPathClicked() {
+        rootPathField.setOnMouseClicked(e -> {
             try {
                 Runtime.getRuntime().exec("explorer " + GlobalHandler.getRootDir());
             } catch (IOException ex) {
@@ -89,62 +89,71 @@ public class MainSceneController implements Initializable {
         });
     }
 
-    public void eSubListener(){
+    public void eSubListener() {
         anchorPanesCreate.addListener((MapChangeListener<Integer, AnchorPane>) change -> {
-            if(!anchorPanesCreate.isEmpty()){
-                if(anchorPanesCreate.size()==3){
-                    borderPane.setCenter(anchorPanesCreate.get(1));
-                }else {
+            if (!anchorPanesCreate.isEmpty()) {
+                if (anchorPanesCreate.size() == 3) {
+                    if (anchorPanesCreate.containsKey(3))
+                        borderPane.setCenter(anchorPanesCreate.get(1));
+                    else if(anchorPanesCreate.containsKey(4)){
+                        borderPane.setCenter(getCreateScene());
+                    }
+                } else {
                     borderPane.setCenter(anchorPanesCreate.get(2));
+
                 }
             }
         });
         anchorPanesCal.addListener((MapChangeListener<Integer, AnchorPane>) change -> {
-            if(!anchorPanesCal.isEmpty()){
-                if(anchorPanesCal.size()==3){
-                    borderPane.setCenter(anchorPanesCal.get(1));
-                }else {
+            if (!anchorPanesCal.isEmpty()) {
+                if (anchorPanesCal.size() == 3) {
+                    if(anchorPanesCal.containsKey(3))
+                        borderPane.setCenter(anchorPanesCal.get(1));
+                    else if(anchorPanesCal.containsKey(4)){
+                        borderPane.setCenter(getCalScene());
+                    }
+                } else {
                     borderPane.setCenter(anchorPanesCal.get(2));
                 }
             }
         });
     }
 
-    public void eCreateBtnClicked(){
+    public void eCreateBtnClicked() {
         createBtn.setOnMouseClicked(e -> borderPane.setCenter(getCreateScene()));
     }
 
-    public void eCalculateBtnClicked(){
+    public void eCalculateBtnClicked() {
         calculateBtn.setOnMouseClicked(e -> borderPane.setCenter(getCalScene()));
     }
 
-    public void eCloseAndMinimizeClicked(){
+    public void eCloseAndMinimizeClicked() {
         closeBtn.setOnMouseClicked(mouseEvent -> {
-            Stage stage =(Stage) createBtn.getScene().getWindow();
+            Stage stage = (Stage) createBtn.getScene().getWindow();
             stage.close();
         });
         minimizeBtn.setOnMouseClicked(mouseEvent -> {
-            Stage stage =(Stage) createBtn.getScene().getWindow();
+            Stage stage = (Stage) createBtn.getScene().getWindow();
             stage.setIconified(true);
         });
     }
 
-    private AnchorPane getCreateScene(){
+    private AnchorPane getCreateScene() {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CreateScene.fxml"));
         AnchorPane anchorPane = null;
         try {
-             anchorPane = new AnchorPane((AnchorPane)fxmlLoader.load());
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
         } catch (IOException e) {
             System.out.println("Load create scene fail!");
         }
         return anchorPane;
     }
 
-    private AnchorPane getCalScene(){
+    private AnchorPane getCalScene() {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CalculateScene.fxml"));
         AnchorPane anchorPane = null;
         try {
-            anchorPane = new AnchorPane((AnchorPane)fxmlLoader.load());
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
         } catch (IOException e) {
             System.out.println("Load calculate scene fail!");
             e.printStackTrace();
@@ -152,11 +161,11 @@ public class MainSceneController implements Initializable {
         return anchorPane;
     }
 
-    private AnchorPane getManScene(){
+    private AnchorPane getManScene() {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ManualScene.fxml"));
         AnchorPane anchorPane = null;
         try {
-            anchorPane = new AnchorPane((AnchorPane)fxmlLoader.load());
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
         } catch (IOException e) {
             System.out.println("Load manual scene fail!");
         }
@@ -164,17 +173,16 @@ public class MainSceneController implements Initializable {
     }
 
 
-
-    private void a(){
-        createBtn.setOnMouseEntered(e->{
+    private void a() {
+        createBtn.setOnMouseEntered(e -> {
         });
     }
 
-    private Scene getLocateScene(){
+    private Scene getLocateScene() {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LocateScene.fxml"));
         Scene scene = null;
         try {
-             scene = new Scene(fxmlLoader.load());
+            scene = new Scene(fxmlLoader.load());
         } catch (IOException e) {
             System.out.println("Load locate scene fail!");
         }

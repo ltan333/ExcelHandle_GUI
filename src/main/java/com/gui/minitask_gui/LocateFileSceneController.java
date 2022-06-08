@@ -82,13 +82,13 @@ public class LocateFileSceneController implements Initializable {
     private void updateStatusField(int status){
         if(status == 0){
             messageField.setStyle("-fx-text-fill: Green");
-            messageField.setText("Located!");
+            messageField.setText("Click next to continue");
             File f = new File(".\\src\\main\\resources\\com\\gui\\icon\\v.png");
             Image img = new Image(f.toURI().toString());
             statusIcon.setImage(img);
         }else {
             messageField.setStyle("-fx-text-fill: RED");
-            messageField.setText("Locate fail!");
+            messageField.setText("File not found!");
             File f = new File(".\\src\\main\\resources\\com\\gui\\icon\\x.png");
             Image img = new Image(f.toURI().toString());
             statusIcon.setImage(img);

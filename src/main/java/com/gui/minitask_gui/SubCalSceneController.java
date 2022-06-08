@@ -198,7 +198,12 @@ public class SubCalSceneController implements Initializable {
 
     public void eBackBtnClicked() {
         btnBack.setOnMouseClicked(mouseEvent -> {
-            MainSceneController.anchorPanesCal.put(3, new AnchorPane());
+            if (createBtn.isDisabled())
+                MainSceneController.anchorPanesCal.put(4, new AnchorPane());
+            else {
+                MainSceneController.anchorPanesCal.put(3, new AnchorPane());
+
+            }
         });
     }
 
@@ -224,8 +229,8 @@ public class SubCalSceneController implements Initializable {
                 Thread t2 = new Thread(runnable);
                 t2.start();
             }
-            writeFileSalaryDetail(path,"Monthy_Earning_Details");
-            CreateMessBox.popupBoxMess("Successful!",1);
+            writeFileSalaryDetail(path, "Monthy_Earning_Details");
+            CreateMessBox.popupBoxMess("Successful!", 1);
         });
     }
 
@@ -255,65 +260,65 @@ public class SubCalSceneController implements Initializable {
         font.setBold(true);
         style.setFont(font);
         Row firstRow = sheet.createRow(0);
-        sheet.setColumnWidth(0,4000);
-        sheet.setColumnWidth(5,3000);
+        sheet.setColumnWidth(0, 4000);
+        sheet.setColumnWidth(5, 3000);
 
 //        Cell weekCell = firstRow.createCell(cellIndex);
 //        weekCell.setCellValue("Week");
         Cell cashCell = firstRow.createCell(cellIndex + 1);
         cashCell.setCellValue("Cash");
         cashCell.setCellStyle(style);
-        Cell cardCell = firstRow.createCell(cellIndex+2);
+        Cell cardCell = firstRow.createCell(cellIndex + 2);
         cardCell.setCellValue("Card");
         cardCell.setCellStyle(style);
-        Cell venmoCell = firstRow.createCell(cellIndex+3);
+        Cell venmoCell = firstRow.createCell(cellIndex + 3);
         venmoCell.setCellValue("Venmo");
         venmoCell.setCellStyle(style);
-        Cell zelleCell = firstRow.createCell(cellIndex+4);
+        Cell zelleCell = firstRow.createCell(cellIndex + 4);
         zelleCell.setCellValue("Zelle");
         zelleCell.setCellStyle(style);
-        Cell giftTakeInCell = firstRow.createCell(cellIndex+5);
+        Cell giftTakeInCell = firstRow.createCell(cellIndex + 5);
         giftTakeInCell.setCellValue("Gift Take In");
         giftTakeInCell.setCellStyle(style);
-        Cell giftSellCell = firstRow.createCell(cellIndex+6);
+        Cell giftSellCell = firstRow.createCell(cellIndex + 6);
         giftSellCell.setCellValue("Gift Sell");
         giftSellCell.setCellStyle(style);
-        Cell totalCell = firstRow.createCell(cellIndex+7);
+        Cell totalCell = firstRow.createCell(cellIndex + 7);
         totalCell.setCellValue("Total");
         totalCell.setCellStyle(style);
         for (int rowIndex = 1; rowIndex < 8; rowIndex++) {
             Row row = sheet.createRow(rowIndex);
             font.setColor(IndexedColors.BLACK1.getIndex());
-            if(rowIndex==1){
+            if (rowIndex == 1) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 1");
                 week.setCellStyle(style);
-            }else if(rowIndex==2){
+            } else if (rowIndex == 2) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 2");
                 week.setCellStyle(style);
-            }else if(rowIndex==3){
+            } else if (rowIndex == 3) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 3");
                 week.setCellStyle(style);
-            }else if(rowIndex==4){
+            } else if (rowIndex == 4) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 4");
                 week.setCellStyle(style);
-            }else if(rowIndex==5){
+            } else if (rowIndex == 5) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 1+2");
                 week.setCellStyle(style);
-            }else if(rowIndex==6){
+            } else if (rowIndex == 6) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 3+4");
                 week.setCellStyle(style);
-            }else if(rowIndex==7){
+            } else if (rowIndex == 7) {
                 Cell week = row.createCell(cellIndex);
                 week.setCellValue("Week 1+2+3+4");
                 week.setCellStyle(style);
             }
-            if(rowIndex>0 && rowIndex<5){
+            if (rowIndex > 0 && rowIndex < 5) {
                 Cell cashCell1 = row.createCell(cellIndex + 1);
                 cashCell1.setCellValue(salaryDetails.get(rowIndex - 1).getCash());
                 Cell cardCell1 = row.createCell(cellIndex + 2);
@@ -328,60 +333,58 @@ public class SubCalSceneController implements Initializable {
                 giftSellCell1.setCellValue(salaryDetails.get(rowIndex - 1).getGiftSell());
                 Cell totalCell1 = row.createCell(cellIndex + 7);
                 totalCell1.setCellValue(salaryDetails.get(rowIndex - 1).getTotal());
-            }else if(rowIndex == 5){
+            } else if (rowIndex == 5) {
                 Cell cashCell1 = row.createCell(cellIndex + 1);
-                cashCell1.setCellValue(salaryDetails.get(0).getCash()+salaryDetails.get(1).getCash());
+                cashCell1.setCellValue(salaryDetails.get(0).getCash() + salaryDetails.get(1).getCash());
                 Cell cardCell1 = row.createCell(cellIndex + 2);
-                cardCell1.setCellValue(salaryDetails.get(0).getCre_debt()+salaryDetails.get(1).getCre_debt());
+                cardCell1.setCellValue(salaryDetails.get(0).getCre_debt() + salaryDetails.get(1).getCre_debt());
                 Cell venmoCell1 = row.createCell(cellIndex + 3);
-                venmoCell1.setCellValue(salaryDetails.get(0).getVenmo()+salaryDetails.get(1).getVenmo());
+                venmoCell1.setCellValue(salaryDetails.get(0).getVenmo() + salaryDetails.get(1).getVenmo());
                 Cell zelleCell1 = row.createCell(cellIndex + 4);
-                zelleCell1.setCellValue(salaryDetails.get(0).getZelle()+salaryDetails.get(1).getZelle());
+                zelleCell1.setCellValue(salaryDetails.get(0).getZelle() + salaryDetails.get(1).getZelle());
                 Cell giftTakeInCell1 = row.createCell(cellIndex + 5);
-                giftTakeInCell1.setCellValue(salaryDetails.get(0).getGiftTakeIn()+salaryDetails.get(1).getGiftTakeIn());
+                giftTakeInCell1.setCellValue(salaryDetails.get(0).getGiftTakeIn() + salaryDetails.get(1).getGiftTakeIn());
                 Cell giftSellCell1 = row.createCell(cellIndex + 6);
-                giftSellCell1.setCellValue(salaryDetails.get(0).getGiftSell()+salaryDetails.get(1).getGiftSell());
+                giftSellCell1.setCellValue(salaryDetails.get(0).getGiftSell() + salaryDetails.get(1).getGiftSell());
                 Cell totalCell1 = row.createCell(cellIndex + 7);
-                totalCell1.setCellValue(salaryDetails.get(0).getTotal()+salaryDetails.get(1).getTotal());
-            }else if(rowIndex ==6 ){
+                totalCell1.setCellValue(salaryDetails.get(0).getTotal() + salaryDetails.get(1).getTotal());
+            } else if (rowIndex == 6) {
                 Cell cashCell1 = row.createCell(cellIndex + 1);
-                cashCell1.setCellValue(salaryDetails.get(2).getCash()+salaryDetails.get(3).getCash());
+                cashCell1.setCellValue(salaryDetails.get(2).getCash() + salaryDetails.get(3).getCash());
 
                 Cell cardCell1 = row.createCell(cellIndex + 2);
-                cardCell1.setCellValue(salaryDetails.get(2).getCre_debt()+salaryDetails.get(3).getCre_debt());
+                cardCell1.setCellValue(salaryDetails.get(2).getCre_debt() + salaryDetails.get(3).getCre_debt());
 
                 Cell venmoCell1 = row.createCell(cellIndex + 3);
-                venmoCell1.setCellValue(salaryDetails.get(2).getVenmo()+salaryDetails.get(3).getVenmo());
+                venmoCell1.setCellValue(salaryDetails.get(2).getVenmo() + salaryDetails.get(3).getVenmo());
 
                 Cell zelleCell1 = row.createCell(cellIndex + 4);
-                zelleCell1.setCellValue(salaryDetails.get(2).getZelle()+salaryDetails.get(3).getZelle());
+                zelleCell1.setCellValue(salaryDetails.get(2).getZelle() + salaryDetails.get(3).getZelle());
 
                 Cell giftTakeInCell1 = row.createCell(cellIndex + 5);
-                giftTakeInCell1.setCellValue(salaryDetails.get(2).getGiftTakeIn()+salaryDetails.get(3).getGiftTakeIn());
+                giftTakeInCell1.setCellValue(salaryDetails.get(2).getGiftTakeIn() + salaryDetails.get(3).getGiftTakeIn());
 
                 Cell giftSellCell1 = row.createCell(cellIndex + 6);
-                giftSellCell1.setCellValue(salaryDetails.get(2).getGiftSell()+salaryDetails.get(3).getGiftSell());
+                giftSellCell1.setCellValue(salaryDetails.get(2).getGiftSell() + salaryDetails.get(3).getGiftSell());
 
                 Cell totalCell1 = row.createCell(cellIndex + 7);
-                totalCell1.setCellValue(salaryDetails.get(2).getTotal()+salaryDetails.get(3).getTotal());
-            }else if(rowIndex == 7){
+                totalCell1.setCellValue(salaryDetails.get(2).getTotal() + salaryDetails.get(3).getTotal());
+            } else if (rowIndex == 7) {
                 Cell cashCell1 = row.createCell(cellIndex + 1);
-                cashCell1.setCellValue(salaryDetails.get(0).getCash()+salaryDetails.get(1).getCash()+salaryDetails.get(2).getCash()+salaryDetails.get(3).getCash());
+                cashCell1.setCellValue(salaryDetails.get(0).getCash() + salaryDetails.get(1).getCash() + salaryDetails.get(2).getCash() + salaryDetails.get(3).getCash());
                 Cell cardCell1 = row.createCell(cellIndex + 2);
-                cardCell1.setCellValue(salaryDetails.get(0).getCre_debt()+salaryDetails.get(1).getCre_debt()+salaryDetails.get(2).getCre_debt()+salaryDetails.get(3).getCre_debt());
+                cardCell1.setCellValue(salaryDetails.get(0).getCre_debt() + salaryDetails.get(1).getCre_debt() + salaryDetails.get(2).getCre_debt() + salaryDetails.get(3).getCre_debt());
                 Cell venmoCell1 = row.createCell(cellIndex + 3);
-                venmoCell1.setCellValue(salaryDetails.get(0).getVenmo()+salaryDetails.get(1).getVenmo()+salaryDetails.get(2).getVenmo()+salaryDetails.get(3).getVenmo());
+                venmoCell1.setCellValue(salaryDetails.get(0).getVenmo() + salaryDetails.get(1).getVenmo() + salaryDetails.get(2).getVenmo() + salaryDetails.get(3).getVenmo());
                 Cell zelleCell1 = row.createCell(cellIndex + 4);
-                zelleCell1.setCellValue(salaryDetails.get(0).getZelle()+salaryDetails.get(1).getZelle()+salaryDetails.get(2).getZelle()+salaryDetails.get(3).getZelle());
+                zelleCell1.setCellValue(salaryDetails.get(0).getZelle() + salaryDetails.get(1).getZelle() + salaryDetails.get(2).getZelle() + salaryDetails.get(3).getZelle());
                 Cell giftTakeInCell1 = row.createCell(cellIndex + 5);
-                giftTakeInCell1.setCellValue(salaryDetails.get(0).getGiftTakeIn()+salaryDetails.get(1).getGiftTakeIn()+salaryDetails.get(2).getGiftTakeIn()+salaryDetails.get(3).getGiftTakeIn());
+                giftTakeInCell1.setCellValue(salaryDetails.get(0).getGiftTakeIn() + salaryDetails.get(1).getGiftTakeIn() + salaryDetails.get(2).getGiftTakeIn() + salaryDetails.get(3).getGiftTakeIn());
                 Cell giftSellCell1 = row.createCell(cellIndex + 6);
-                giftSellCell1.setCellValue(salaryDetails.get(0).getGiftSell()+salaryDetails.get(1).getGiftSell()+salaryDetails.get(2).getGiftSell()+salaryDetails.get(3).getGiftSell());
+                giftSellCell1.setCellValue(salaryDetails.get(0).getGiftSell() + salaryDetails.get(1).getGiftSell() + salaryDetails.get(2).getGiftSell() + salaryDetails.get(3).getGiftSell());
                 Cell totalCell1 = row.createCell(cellIndex + 7);
-                totalCell1.setCellValue(salaryDetails.get(0).getTotal()+salaryDetails.get(1).getTotal()+salaryDetails.get(2).getTotal()+salaryDetails.get(3).getTotal());
+                totalCell1.setCellValue(salaryDetails.get(0).getTotal() + salaryDetails.get(1).getTotal() + salaryDetails.get(2).getTotal() + salaryDetails.get(3).getTotal());
             }
-
-
 
 
         }
