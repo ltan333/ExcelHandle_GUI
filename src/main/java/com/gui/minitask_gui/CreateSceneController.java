@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -62,6 +63,9 @@ public class CreateSceneController implements Initializable {
 
     @FXML
     private Button refeshBtn;
+
+    @FXML
+    private Button openFolderBtn;
 
     @FXML
     private ImageView reloadIcon;
@@ -131,6 +135,7 @@ public class CreateSceneController implements Initializable {
         showCreatedIcon();
         eCreateBtnClicked();
         eRefeshBtnClicked();
+        eOpenFolderBtnClicked();
         eMonthIconBtn();
     }
 
@@ -159,13 +164,53 @@ public class CreateSceneController implements Initializable {
                 return;
             }
             showCreatedIcon();
+        });
+    }
 
+    public void eOpenFolderBtnClicked(){
+        openFolderBtn.setOnAction(e->{
+            if(InputValidation.isEmptyString(yearField.getText())){
+                CreateMessBox.popupBoxMess("Year must be not empty!",2);
+                return;
+            }
+            if(!InputValidation.isNumber(yearField.getText())){
+                CreateMessBox.popupBoxMess("Year must be a integer number!",2);
+                return;
+            }
+            try {
+                if(Integer.parseInt(yearField.getText()) < 1990){
+                    CreateMessBox.popupBoxMess("Year must be greater than 1990!",2);
+                    return;
+                }
+            }catch (NumberFormatException ex){
+                CreateMessBox.popupBoxMess("Year must be a integer number!",2);
+                return;
+            }
+            if(Integer.parseInt(yearField.getText()) > Calendar.getInstance().get(Calendar.YEAR)+100){
+                CreateMessBox.popupBoxMess("Year must be greater than "+(Calendar.getInstance().get(Calendar.YEAR)+100)+"!",2);
+                return;
+            }
+            File f = new File(GlobalHandler.getRootDir()+yearField.getText());
+            showCreatedIcon();
+            if(f.exists()){
+                try {
+                    Runtime.getRuntime().exec("explorer " + f.getPath());
+                } catch (IOException ex) {
+                    CreateMessBox.popupBoxMess("Can't open folder!",2);
+                }
+            }else {
+                f.mkdirs();
+                try {
+                    Runtime.getRuntime().exec("explorer " + f.getPath());
+                } catch (IOException ex) {
+                    CreateMessBox.popupBoxMess("Can't open folder!",2);
+                }
+            }
         });
     }
 
     public void eCreateBtnClicked(){
         createBtn.setOnMouseClicked(e->{
-
             int count=0;
             for (CheckBox checkBox:checkBoxes ) {
                 if(checkBox.isSelected()){
@@ -205,6 +250,8 @@ public class CreateSceneController implements Initializable {
             MainSceneController.anchorPanesCreate.put(2,getCalScene());
         });
     }
+
+
 
     public void eMonthIconBtn(){
         monthIcon1.setOnMouseClicked(e->{

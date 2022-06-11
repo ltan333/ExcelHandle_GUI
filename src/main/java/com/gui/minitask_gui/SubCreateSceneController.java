@@ -26,6 +26,9 @@ public class SubCreateSceneController implements Initializable {
     private ImageView btnBack;
 
     @FXML
+    private ImageView addEmployeeIcon;
+
+    @FXML
     private ScrollPane scrollpaneEmployee;
 
     @FXML
@@ -351,13 +354,10 @@ public class SubCreateSceneController implements Initializable {
     }
 
     private ImageView createAddNameIcon() {
-        File f = new File(".\\src\\main\\resources\\com\\gui\\icon\\add.png");
-        Image img = new Image(f.toURI().toString());
-        ImageView addIcon = new ImageView(img);
-        addIcon.setStyle("-fx-cursor: hand");
-        addIcon.setFitWidth(30);
-        addIcon.setFitHeight(30);
-        addIcon.setOnMouseClicked(e -> {
+        addEmployeeIcon.setStyle("-fx-cursor: hand");
+        addEmployeeIcon.setFitWidth(30);
+        addEmployeeIcon.setFitHeight(30);
+        addEmployeeIcon.setOnMouseClicked(e -> {
             String names = "";
             try {
                 names = CreateMessBox.popupBoxGetText("Add Name", "Please enter name\n" +
@@ -373,7 +373,7 @@ public class SubCreateSceneController implements Initializable {
                 names = "";
             }
         });
-        return addIcon;
+        return addEmployeeIcon;
     }
 
     private void initList() {

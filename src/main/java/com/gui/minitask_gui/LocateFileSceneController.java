@@ -28,7 +28,9 @@ public class LocateFileSceneController implements Initializable {
     private TextField pathField;
 
     @FXML
-    private ImageView statusIcon;
+    private ImageView statusIconV;
+    @FXML
+    private ImageView statusIconX;
 
     @FXML
     private ImageView closeBtn;
@@ -83,15 +85,13 @@ public class LocateFileSceneController implements Initializable {
         if(status == 0){
             messageField.setStyle("-fx-text-fill: Green");
             messageField.setText("Click next to continue");
-            File f = new File(".\\src\\main\\resources\\com\\gui\\icon\\v.png");
-            Image img = new Image(f.toURI().toString());
-            statusIcon.setImage(img);
+            statusIconV.setVisible(true);
+            statusIconX.setVisible(false);
         }else {
             messageField.setStyle("-fx-text-fill: RED");
             messageField.setText("File not found!");
-            File f = new File(".\\src\\main\\resources\\com\\gui\\icon\\x.png");
-            Image img = new Image(f.toURI().toString());
-            statusIcon.setImage(img);
+            statusIconV.setVisible(false);
+            statusIconX.setVisible(true);
         }
     }
 

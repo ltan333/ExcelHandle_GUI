@@ -58,6 +58,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button fx:id="openFolderBtn" layoutX="294.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-focus-traversable: false;" text="Open Folder">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
             <Label prefHeight="55.0" prefWidth="690.0" styleClass="title" stylesheets="@../css/style.css" text="Month" textFill="WHITE">

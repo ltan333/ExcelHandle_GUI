@@ -28,6 +28,8 @@ public class MainSceneController implements Initializable {
     @FXML
     private Button calculateBtn;
 
+
+
     @FXML
     private ImageView closeBtn;
 
@@ -78,6 +80,7 @@ public class MainSceneController implements Initializable {
             stage.show();
         });
     }
+
 
     public void eRootPathClicked() {
         rootPathField.setOnMouseClicked(e -> {
