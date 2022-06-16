@@ -21,6 +21,7 @@ public class GlobalHandler {
     public static int numOfDay1 = 0;
     public static String day2 = "";
     public static int numOfDay2 = 0;
+    public static boolean err2= false;
     public static ArrayList<SalaryDetail> salaryDetails = new ArrayList<>();
 
     public static void setRootDir(String fullPath) {

@@ -228,7 +228,7 @@ public class CalculateSceneController implements Initializable {
                 CreateMessBox.popupBoxMess("Please Only Check 1 Month!", 2);
                 return;
             }
-
+            GlobalHandler.err2=false;
             for (int i = 0; i < checkBoxes.size(); i++) {
                 if (checkBoxes.get(i).isSelected()) {
                     if (!GlobalHandler.checkMonthExistedCreate(Integer.parseInt(yearField.getText()), i + 1)) {
@@ -254,6 +254,8 @@ public class CalculateSceneController implements Initializable {
                     String path = GlobalHandler.getRootDir()+yearField.getText()+"\\"+GlobalHandler.getMonthName(i+1)+"\\";
                     s.readData(path);
                     s.readSalaryDetail(path);
+                    if(GlobalHandler.err2)
+                        return;
                 }
             }
             MainSceneController.anchorPanesCal.clear();

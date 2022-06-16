@@ -36,7 +36,9 @@ public class EmployeeSalaryManager {
                     this.dateInFile = dateCell.getDateCellValue();
                     calendar.setTime(dateInFile);
                 }
-
+                if(workbook.getSheetName(numberOfSheet-1).toLowerCase().contains("chart")){
+                    numberOfSheet-=1;
+                }
                 for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++) {
                     sheet = workbook.getSheetAt(sheetIndex);
                     if(sheet != null){
@@ -108,6 +110,9 @@ public class EmployeeSalaryManager {
                 FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
                 CellValue cellValue;
                 int numberOfSheet = workbook.getNumberOfSheets();
+                if(workbook.getSheetName(numberOfSheet-1).toLowerCase().contains("chart")){
+                    numberOfSheet-=1;
+                }
                 //Daily
                 for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++) {
                     Sheet sheet = workbook.getSheetAt(sheetIndex);
@@ -116,32 +121,39 @@ public class EmployeeSalaryManager {
                     for (int rowIndex = 21; rowIndex < 40; rowIndex++) {
                         Row row = sheet.getRow(rowIndex);
                         Cell cell;
-                        if (rowIndex == 21) {
-                            cell = row.getCell(19);
-                            cellValue = formulaEvaluator.evaluate(cell);
-                            cash += cellValue.getNumberValue();
-                        } else if (rowIndex == 22) {
-                            cell = row.getCell(19);
-                            cellValue = formulaEvaluator.evaluate(cell);
-                            cre += cellValue.getNumberValue();
-                        } else if (rowIndex == 23) {
-                            cell = row.getCell(19);
-                            cellValue = formulaEvaluator.evaluate(cell);
-                            venmo += cellValue.getNumberValue();
-                        } else if (rowIndex == 24) {
-                            cell = row.getCell(19);
-                            cellValue = formulaEvaluator.evaluate(cell);
-                            zelle += cellValue.getNumberValue();
-                        } else if (rowIndex == 25) {
-                            cell = row.getCell(19);
-                            cellValue = formulaEvaluator.evaluate(cell);
-                            giftTakeIn += cellValue.getNumberValue();
-                            calendar.add(Calendar.DAY_OF_MONTH, 1);
+                        try{
+                            if (rowIndex == 21) {
+                                cell = row.getCell(19);
+                                cellValue = formulaEvaluator.evaluate(cell);
+                                cash += cellValue.getNumberValue();
+                            } else if (rowIndex == 22) {
+                                cell = row.getCell(19);
+                                cellValue = formulaEvaluator.evaluate(cell);
+                                cre += cellValue.getNumberValue();
+                            } else if (rowIndex == 23) {
+                                cell = row.getCell(19);
+                                cellValue = formulaEvaluator.evaluate(cell);
+                                venmo += cellValue.getNumberValue();
+                            } else if (rowIndex == 24) {
+                                cell = row.getCell(19);
+                                cellValue = formulaEvaluator.evaluate(cell);
+                                zelle += cellValue.getNumberValue();
+                            } else if (rowIndex == 25) {
+                                cell = row.getCell(19);
+                                cellValue = formulaEvaluator.evaluate(cell);
+                                giftTakeIn += cellValue.getNumberValue();
+                                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                                break;
+                            }
+                        }catch (NullPointerException ex){
+                            CreateMessBox.popupBoxMess("There is no data in row T at sheet "+(sheetIndex+1)+" file "+("Week "+i),3);
+                            GlobalHandler.err2=true;
                             break;
                         }
-
-
                     }//End of get value
+                    if(GlobalHandler.err2){
+                        break;
+                    }
                 }//End of daily
                 inputStream.close();
                 workbook.close();
