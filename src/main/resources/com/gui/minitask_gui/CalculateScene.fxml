@@ -125,6 +125,14 @@
                                     <Image url="@../icon/v.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="updateIcon1" fitHeight="30.0" fitWidth="35.0" layoutX="31.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -146,6 +154,14 @@
                                  <image>
                                     <Image url="@../icon/v.png" />
                                  </image>
+                              </ImageView>
+                              <ImageView fx:id="updateIcon3" fitHeight="30.0" fitWidth="35.0" layoutX="31.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -169,6 +185,14 @@
                                     <Image url="@../icon/v.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="updateIcon4" fitHeight="30.0" fitWidth="35.0" layoutX="31.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
@@ -190,6 +214,14 @@
                                  <image>
                                     <Image url="@../icon/v.png" />
                                  </image>
+                              </ImageView>
+                              <ImageView fx:id="updateIcon5" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -213,6 +245,14 @@
                                     <Image url="@../icon/v.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="updateIcon6" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -234,6 +274,14 @@
                                  <image>
                                     <Image url="@../icon/v.png" />
                                  </image>
+                              </ImageView>
+                              <ImageView fx:id="updateIcon7" fitHeight="30.0" fitWidth="35.0" layoutX="31.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -257,6 +305,14 @@
                                     <Image url="@../icon/v.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="updateIcon8" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -278,6 +334,14 @@
                                  <image>
                                     <Image url="@../icon/v.png" />
                                  </image>
+                              </ImageView>
+                              <ImageView fx:id="updateIcon9" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -301,6 +365,14 @@
                                     <Image url="@../icon/v.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="updateIcon10" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
@@ -322,6 +394,14 @@
                                  <image>
                                     <Image url="@../icon/v.png" />
                                  </image>
+                              </ImageView>
+                              <ImageView fx:id="updateIcon11" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -345,6 +425,14 @@
                                     <Image url="@../icon/v.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="updateIcon12" fitHeight="30.0" fitWidth="35.0" layoutX="32.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -366,6 +454,14 @@
                                  <image>
                                     <Image url="@../icon/v.png" />
                                  </image>
+                              </ImageView>
+                              <ImageView fx:id="updateIcon2" fitHeight="30.0" fitWidth="35.0" layoutX="29.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" smooth="false" visible="false">
+                                 <image>
+                                    <Image url="@../icon/icons8_counterclockwise_arrows_96px_1.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </children>
                         </AnchorPane>

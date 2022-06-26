@@ -15,14 +15,24 @@ import java.time.YearMonth;
 import java.util.*;
 
 public class GlobalHandler {
+    /////GLOBAL_VAR/////GLOBAL_VAR//////GLOBAL_VAR///////GLOBAL_VAR/////////GLOBAL_VAR//////GLOBAL_VAR/////GLOBAL_VAR/////
     public static final File configFile = new File("config.txt");
     private static String rootDir = "";
+    //Var of CreateScene
     public static String day1 = "";
     public static int numOfDay1 = 0;
+    //Var of CalculateScene
     public static String day2 = "";
     public static int numOfDay2 = 0;
     public static boolean err2= false;
+    public static int monthToUpdate=0;
+    public static int yearToUpdate=0;
+    //Var of UpdatePopupScene
+    public static ArrayList<Integer> chosenWeek = new ArrayList<>();
+    public static boolean isOpenAfterUpdate = true;
+    // Salary detail
     public static ArrayList<SalaryDetail> salaryDetails = new ArrayList<>();
+    /////GLOBAL_VAR/////GLOBAL_VAR//////GLOBAL_VAR///////GLOBAL_VAR/////////GLOBAL_VAR//////GLOBAL_VAR/////GLOBAL_VAR/////
 
     public static void setRootDir(String fullPath) {
         String[] splitList = fullPath.split("\\\\");

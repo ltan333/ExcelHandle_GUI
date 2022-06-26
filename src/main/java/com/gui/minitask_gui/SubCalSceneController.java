@@ -234,7 +234,7 @@ public class SubCalSceneController implements Initializable {
         });
     }
 
-    private void writeFileSalaryDetail(String path, String fileName) {
+    public void writeFileSalaryDetail(String path, String fileName) {
         try {
             OutputStream outputStream = new FileOutputStream(path + fileName + ".xlsx");
             Workbook workbook = new XSSFWorkbook();

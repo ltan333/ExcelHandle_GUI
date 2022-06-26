@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -63,14 +65,21 @@ public class LocateFileSceneController implements Initializable {
         browserBtn.setOnMouseClicked(e->{
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt"));
-            File f = fileChooser.showOpenDialog(new Stage());
+            Stage chooserStage = new Stage();
+            chooserStage.setScene(new Scene(new VBox(), 1, 1));
+            chooserStage.initOwner(browserBtn.getScene().getWindow());
+            chooserStage.show();
+
+            File f = fileChooser.showOpenDialog(chooserStage);
             if(checkPaymentFileValid(f)){
                 pathField.setText(f.getPath());
                 updateStatusField(0);
+                chooserStage.close();
             }else {
                 if(f != null)
                     pathField.setText(f.getPath());
                 updateStatusField(1);
+                chooserStage.close();
             }
         });
     }

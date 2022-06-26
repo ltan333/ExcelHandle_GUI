@@ -3,11 +3,14 @@ package com.gui.minitask_gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -122,13 +125,47 @@ public class CalculateSceneController implements Initializable {
     private ImageView monthIcon11;
     @FXML
     private ImageView monthIcon12;
+    @FXML
+    private ImageView updateIcon1;
 
     @FXML
+    private ImageView updateIcon10;
+
+    @FXML
+    private ImageView updateIcon11;
+
+    @FXML
+    private ImageView updateIcon12;
+
+    @FXML
+    private ImageView updateIcon2;
+
+    @FXML
+    private ImageView updateIcon3;
+
+    @FXML
+    private ImageView updateIcon4;
+
+    @FXML
+    private ImageView updateIcon5;
+
+    @FXML
+    private ImageView updateIcon6;
+
+    @FXML
+    private ImageView updateIcon7;
+
+    @FXML
+    private ImageView updateIcon8;
+
+    @FXML
+    private ImageView updateIcon9;
+    @FXML
     private TextField yearField;
-    //==================================================================================================//
+    ////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE/////////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE///////////
     ArrayList<ImageView> icons = new ArrayList<>();
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
-
+    ArrayList<ImageView> updateIcons= new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createInitList();
@@ -139,6 +176,7 @@ public class CalculateSceneController implements Initializable {
         eRefeshBtnClicked();
         eOpenFolderBtnClicked();
         eMonthIconBtn();
+        eUpdateIconClicked();
     }
 
 
@@ -355,15 +393,48 @@ public class CalculateSceneController implements Initializable {
     }
 
     private void showCreatedIcon() {
-        for (ImageView img : icons) {
-            img.setVisible(false);
+        for (int i = 0; i < 12; i++) {
+            icons.get(i).setVisible(false);
+            checkBoxes.get(i).setVisible(true);
+            updateIcons.get(i).setVisible(false);
         }
         for (int i = 0; i < 12; i++) {
             if (GlobalHandler.checkMonthExistedCal(Integer.parseInt(yearField.getText()), i + 1)) {
                 icons.get(i).setVisible(true);
+                checkBoxes.get(i).setVisible(false);
+                updateIcons.get(i).setVisible(true);
             }
 
         }
+    }
+
+    public void eUpdateIconClicked(){
+        for (int i =0; i<12;i++){
+            int finalI = i;
+            updateIcons.get(i).setOnMouseClicked(e->{
+                GlobalHandler.monthToUpdate= finalI +1;
+                GlobalHandler.yearToUpdate=Integer.parseInt(yearField.getText());
+                Stage popupStage = new Stage();
+                popupStage.initOwner(calBtn.getScene().getWindow());
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                popupStage.setResizable(false);
+                popupStage.setTitle("Update");
+                popupStage.setScene(new Scene(getUpdatePopupScene()));
+                popupStage.show();
+            });
+        }
+    }
+
+    private AnchorPane getUpdatePopupScene(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdatePopupScene.fxml"));
+        AnchorPane anchorPane = null;
+        try {
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Load Sub Calculate scene fail!");
+            e.printStackTrace();
+        }
+        return anchorPane;
     }
 
     private AnchorPane getCalScene() {
@@ -404,6 +475,19 @@ public class CalculateSceneController implements Initializable {
         checkBoxes.add(checkbox10);
         checkBoxes.add(checkbox11);
         checkBoxes.add(checkbox12);
+
+        updateIcons.add(updateIcon1);
+        updateIcons.add(updateIcon2);
+        updateIcons.add(updateIcon3);
+        updateIcons.add(updateIcon4);
+        updateIcons.add(updateIcon5);
+        updateIcons.add(updateIcon6);
+        updateIcons.add(updateIcon7);
+        updateIcons.add(updateIcon8);
+        updateIcons.add(updateIcon9);
+        updateIcons.add(updateIcon10);
+        updateIcons.add(updateIcon11);
+        updateIcons.add(updateIcon12);
 
     }
 }

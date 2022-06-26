@@ -173,14 +173,131 @@ public class EmployeeSalaryManager {
         GlobalHandler.salaryDetails.addAll(salaryDetails);
     }
 
+    public void updateData(String path,int sheet){
+        File file = new File(path+"Salary.xlsx");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateInFile);
+
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet1 = workbook.getSheetAt(0);
+            Sheet sheet2 = workbook.getSheetAt(1);
+            if(sheet==1){
+                //create value update
+                createValueUpdate(workbook,sheet1,1,calendar);
+            }else if(sheet == 2){
+                calendar.add(Calendar.DAY_OF_MONTH,7);
+                //create value update
+                createValueUpdate(workbook,sheet1,2,calendar);
+            }else if(sheet == 3){
+                calendar.add(Calendar.DAY_OF_MONTH,15);
+                //create value update
+                createValueUpdate(workbook,sheet2,3,calendar);
+            }else if(sheet == 4){
+                calendar.add(Calendar.DAY_OF_MONTH,22);
+                //create value update
+                createValueUpdate(workbook,sheet2,4,calendar);
+            }
+            inputStream.close();
+            OutputStream outputStream = new FileOutputStream(file);
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createValueUpdate(Workbook workbook, Sheet sheet,int week, Calendar calendar){
+        // Get number of days in month
+        int numberDateOfMonth = getNumberOfDayInMonth(calendar.getTime());
+        //
+        int numDayInSheet= 0;
+        int rowIndex = 0;
+        if(week==1){
+            numDayInSheet = 7;
+            rowIndex =1;
+        }
+        else if(week == 2){
+            rowIndex =8;
+            numDayInSheet=15;
+        }
+        else if (week ==3){
+            rowIndex=1;
+            numDayInSheet=7;
+        }
+        else {
+            rowIndex=8;
+            numDayInSheet = numberDateOfMonth - 15;
+        }
+        // Sort employee for name.
+        sort(employees);
+        // Start row 0 but cell 2 because 0 = day&month, 1 = day
+
+        int cellIndex = 2;
+        while (true){
+            Row row = sheet.getRow(rowIndex);
+            if (rowIndex <= numDayInSheet ) {
+                //Add value
+                Cell dateCell = row.getCell(0);
+                Date date = dateCell.getDateCellValue();
+                for (Employee e : employees) {
+                    Cell salaryCell = row.getCell(cellIndex);
+                    salaryCell.setCellValue(e.getSalaryOfDate(date).getSalary());
+                    Cell tipCell = row.getCell(cellIndex + 1);
+                    tipCell.setCellValue(e.getSalaryOfDate(date).getTip());
+                    Cell cashCell = row.getCell(cellIndex + 2);
+                    cashCell.setCellValue(e.getSalaryOfDate(date).getCash());
+                    cellIndex += 3;
+                }
+                //Add total value
+                Cell totalCell = row.getCell(cellIndex);
+                totalCell.setCellValue(getATotalAll(date).getAmount());
+                Cell recepCell = row.getCell(cellIndex + 1);
+                recepCell.setCellValue(0);
+                Cell recepCell2 = row.getCell(cellIndex + 2);
+                recepCell2.setCellValue(0);
+                cellIndex = 2;
+                //Add 1 day in calender.
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            } else if (rowIndex == 17) {
+                Cell totalCell = row.getCell(0);
+                totalCell.setCellValue("TOTAL");
+                for (Employee e : employees) {
+                    double[] totalList = sheet.getSheetName().equalsIgnoreCase("week 1-2")?e.calculateSalaryOfEmployeeTwoWeek1(dateInFile):e.calculateSalaryOfEmployeeTwoWeek2(dateInFile,numberDateOfMonth);
+                    Cell totalSalary = row.getCell(cellIndex);
+                    totalSalary.setCellValue(totalList[0]);
+                    Cell totalTip = row.getCell(cellIndex + 1);
+                    totalTip.setCellValue(totalList[1]);
+                    Cell totalCash = row.getCell(cellIndex + 2);
+                    totalCash.setCellValue(totalList[2]);
+                    cellIndex += 3;
+                }
+                Cell totalAll = row.getCell(cellIndex);
+                totalAll.setCellValue(sheet.getSheetName().equalsIgnoreCase("week 1-2")?calculateTotalAllTwoWeek1(dateInFile):calculateTotalAllTwoWeek2(dateInFile,numberDateOfMonth));
+                cellIndex = 2;
+                break;
+            }
+            rowIndex++;
+        }
+
+    }
+
     public void writeData(String path) {
         try {
             OutputStream outputStream;
             outputStream = new FileOutputStream(path + "Salary.xlsx");
             Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("Salary");
+            Sheet sheet = workbook.createSheet("Week 1-2");
+            Sheet sheet2 = workbook.createSheet("Week 3-4");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateInFile);
             //Create data in sheet.
-            createValue(sheet, workbook);
+            createValue(sheet, workbook, calendar);
+            createValue(sheet2,workbook,calendar);
             //Create file.
             workbook.write(outputStream);
             outputStream.close();
@@ -190,14 +307,20 @@ public class EmployeeSalaryManager {
         }
     }
 
-    public void createValue(Sheet sheet, Workbook wb) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateInFile);
+    private void createValue(Sheet sheet, Workbook wb, Calendar calendar) {
+
         // Get number of days in month
         int numberDateOfMonth = getNumberOfDayInMonth(calendar.getTime());
+        //
+        int numDayInSheet= 0;
+        if(sheet.getSheetName().equalsIgnoreCase("week 1-2")){
+             numDayInSheet = 15;
+        }else {
+             numDayInSheet = numberDateOfMonth - 15;
+        }
         // Set cell style.
         CellStyle cellStyle = wb.createCellStyle();
-            CreationHelper createHelper = wb.getCreationHelper();
+        CreationHelper createHelper = wb.getCreationHelper();
         cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("MM-dd"));
         // Sort employee for name.
         sort(employees);
@@ -219,7 +342,7 @@ public class EmployeeSalaryManager {
                 Cell recepCell2 = row.createCell(cellIndex + 2);
                 recepCell2.setCellValue("Receptionist 2");
                 cellIndex = 2;
-            } else if ((rowIndex >= 1 && rowIndex <= 15) || (rowIndex >= 30 && rowIndex <= 30 + numberDateOfMonth - 15)) {
+            } else if ((rowIndex >= 1 && rowIndex <= numDayInSheet )) {
                 Cell dateCell = row.createCell(0);
                 Cell dayOfWeekCell = row.createCell(1);
                 dateCell.setCellValue(calendar.getTime());
@@ -243,12 +366,13 @@ public class EmployeeSalaryManager {
                 Cell recepCell2 = row.createCell(cellIndex + 2);
                 recepCell2.setCellValue(0);
                 cellIndex = 2;
+                //Add 1 day in calender.
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
             } else if (rowIndex == 17) {
                 Cell totalCell = row.createCell(0);
                 totalCell.setCellValue("TOTAL");
                 for (Employee e : employees) {
-                    double[] totalList = e.calculateSalaryOfEmployeeTwoWeek1(dateInFile);
+                    double[] totalList = sheet.getSheetName().equalsIgnoreCase("week 1-2")?e.calculateSalaryOfEmployeeTwoWeek1(dateInFile):e.calculateSalaryOfEmployeeTwoWeek2(dateInFile,numberDateOfMonth);
                     Cell totalSalary = row.createCell(cellIndex);
                     totalSalary.setCellValue(totalList[0]);
                     Cell totalTip = row.createCell(cellIndex + 1);
@@ -258,7 +382,7 @@ public class EmployeeSalaryManager {
                     cellIndex += 3;
                 }
                 Cell totalAll = row.createCell(cellIndex);
-                totalAll.setCellValue(calculateTotalAllTwoWeek1(dateInFile));
+                totalAll.setCellValue(sheet.getSheetName().equalsIgnoreCase("week 1-2")?calculateTotalAllTwoWeek1(dateInFile):calculateTotalAllTwoWeek2(dateInFile,numberDateOfMonth));
                 cellIndex = 2;
             } else if (rowIndex == 18) {
                 Cell percenCell = row.createCell(0);
@@ -397,7 +521,10 @@ public class EmployeeSalaryManager {
                     cellIndex += 3;
                 }
                 cellIndex = 2;
-            } else if (rowIndex == 31 + numberDateOfMonth - 14) {
+                break;
+            }
+            ////////////////DROP////////////////DROP///////////////////DROP/////////////DROP//////////DROP/////////////////////////
+            else if (rowIndex == 31 + numberDateOfMonth - 14) {
                 Cell totalCell = row.createCell(0);
                 totalCell.setCellValue("TOTAL");
                 for (Employee e : employees) {
