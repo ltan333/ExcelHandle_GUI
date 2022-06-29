@@ -245,20 +245,20 @@ public class EmployeeSalaryManager {
                 Cell dateCell = row.getCell(0);
                 Date date = dateCell.getDateCellValue();
                 for (Employee e : employees) {
-                    Cell salaryCell = row.getCell(cellIndex);
+                    Cell salaryCell = row.createCell(cellIndex);
                     salaryCell.setCellValue(e.getSalaryOfDate(date).getSalary());
-                    Cell tipCell = row.getCell(cellIndex + 1);
+                    Cell tipCell = row.createCell(cellIndex + 1);
                     tipCell.setCellValue(e.getSalaryOfDate(date).getTip());
-                    Cell cashCell = row.getCell(cellIndex + 2);
+                    Cell cashCell = row.createCell(cellIndex + 2);
                     cashCell.setCellValue(e.getSalaryOfDate(date).getCash());
                     cellIndex += 3;
                 }
                 //Add total value
-                Cell totalCell = row.getCell(cellIndex);
+                Cell totalCell = row.createCell(cellIndex);
                 totalCell.setCellValue(getATotalAll(date).getAmount());
-                Cell recepCell = row.getCell(cellIndex + 1);
+                Cell recepCell = row.createCell(cellIndex + 1);
                 recepCell.setCellValue(0);
-                Cell recepCell2 = row.getCell(cellIndex + 2);
+                Cell recepCell2 = row.createCell(cellIndex + 2);
                 recepCell2.setCellValue(0);
                 cellIndex = 2;
                 //Add 1 day in calender.
@@ -268,15 +268,15 @@ public class EmployeeSalaryManager {
                 totalCell.setCellValue("TOTAL");
                 for (Employee e : employees) {
                     double[] totalList = sheet.getSheetName().equalsIgnoreCase("week 1-2")?e.calculateSalaryOfEmployeeTwoWeek1(dateInFile):e.calculateSalaryOfEmployeeTwoWeek2(dateInFile,numberDateOfMonth);
-                    Cell totalSalary = row.getCell(cellIndex);
+                    Cell totalSalary = row.createCell(cellIndex);
                     totalSalary.setCellValue(totalList[0]);
-                    Cell totalTip = row.getCell(cellIndex + 1);
+                    Cell totalTip = row.createCell(cellIndex + 1);
                     totalTip.setCellValue(totalList[1]);
-                    Cell totalCash = row.getCell(cellIndex + 2);
+                    Cell totalCash = row.createCell(cellIndex + 2);
                     totalCash.setCellValue(totalList[2]);
                     cellIndex += 3;
                 }
-                Cell totalAll = row.getCell(cellIndex);
+                Cell totalAll = row.createCell(cellIndex);
                 totalAll.setCellValue(sheet.getSheetName().equalsIgnoreCase("week 1-2")?calculateTotalAllTwoWeek1(dateInFile):calculateTotalAllTwoWeek2(dateInFile,numberDateOfMonth));
                 cellIndex = 2;
                 break;
