@@ -1,13 +1,17 @@
-package com.gui.minitask_gui;
+package com.gui.controller;
 
+import com.gui.minitask_gui.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class CreateSceneController implements Initializable {
+public class CalculateSceneController implements Initializable {
     @FXML
     private AnchorPane anchorpaneRoot;
 
@@ -59,7 +63,7 @@ public class CreateSceneController implements Initializable {
     private CheckBox checkbox9;
 
     @FXML
-    private Button createBtn;
+    private Button calBtn;
 
     @FXML
     private Button refeshBtn;
@@ -123,47 +127,85 @@ public class CreateSceneController implements Initializable {
     @FXML
     private ImageView monthIcon12;
     @FXML
+    private ImageView updateIcon1;
+
+    @FXML
+    private ImageView updateIcon10;
+
+    @FXML
+    private ImageView updateIcon11;
+
+    @FXML
+    private ImageView updateIcon12;
+
+    @FXML
+    private ImageView updateIcon2;
+
+    @FXML
+    private ImageView updateIcon3;
+
+    @FXML
+    private ImageView updateIcon4;
+
+    @FXML
+    private ImageView updateIcon5;
+
+    @FXML
+    private ImageView updateIcon6;
+
+    @FXML
+    private ImageView updateIcon7;
+
+    @FXML
+    private ImageView updateIcon8;
+
+    @FXML
+    private ImageView updateIcon9;
+    @FXML
     private TextField yearField;
-//==================================================================================================//
+    ////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE/////////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE///////////
     ArrayList<ImageView> icons = new ArrayList<>();
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+    ArrayList<ImageView> updateIcons= new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createInitList();
-        yearField.setText(Calendar.getInstance().get(Calendar.YEAR)+"");
-        GlobalHandler.mouseEnteredRotateEffect(refeshBtn,reloadIcon,180);
+        yearField.setText(Calendar.getInstance().get(Calendar.YEAR) + "");
+        GlobalHandler.mouseEnteredRotateEffect(refeshBtn, reloadIcon, 180);
         showCreatedIcon();
         eCreateBtnClicked();
         eRefeshBtnClicked();
         eOpenFolderBtnClicked();
         eMonthIconBtn();
+        eUpdateIconClicked();
     }
 
 
-    public void eRefeshBtnClicked(){
+    public void eRefeshBtnClicked() {
         refeshBtn.setOnAction(actionEvent -> {
-            if(InputValidation.isEmptyString(yearField.getText())){
-                CreateMessBox.popupBoxMess("Year must be not empty!",2);
+            if (InputValidation.isEmptyString(yearField.getText())) {
+                CreateMessBox.popupBoxMess("Year must be not empty!", 2);
                 return;
             }
-            if(!InputValidation.isNumber(yearField.getText())){
-                CreateMessBox.popupBoxMess("Year must be a integer number!",2);
+            if (!InputValidation.isNumber(yearField.getText())) {
+                CreateMessBox.popupBoxMess("Year must be a integer number!", 2);
                 return;
             }
             try {
-                if(Integer.parseInt(yearField.getText()) < 1990){
-                    CreateMessBox.popupBoxMess("Year must be greater than 1990!",2);
+                if (Integer.parseInt(yearField.getText()) < 1990) {
+                    CreateMessBox.popupBoxMess("Year must be greater than 1990!", 2);
                     return;
                 }
-            }catch (NumberFormatException e){
-                CreateMessBox.popupBoxMess("Year must be a integer number!",2);
+            } catch (NumberFormatException e) {
+                CreateMessBox.popupBoxMess("Year must be a integer number!", 2);
                 return;
             }
-            if(Integer.parseInt(yearField.getText()) > Calendar.getInstance().get(Calendar.YEAR)+100){
-                CreateMessBox.popupBoxMess("Year must be greater than "+(Calendar.getInstance().get(Calendar.YEAR)+100)+"!",2);
+            if (Integer.parseInt(yearField.getText()) > Calendar.getInstance().get(Calendar.YEAR) + 100) {
+                CreateMessBox.popupBoxMess("Year must be greater than " + (Calendar.getInstance().get(Calendar.YEAR) + 100) + "!", 2);
                 return;
             }
             showCreatedIcon();
+
         });
     }
 
@@ -208,50 +250,60 @@ public class CreateSceneController implements Initializable {
             }
         });
     }
+    public void eCreateBtnClicked() {
+        calBtn.setOnMouseClicked(e -> {
 
-    public void eCreateBtnClicked(){
-        createBtn.setOnMouseClicked(e->{
-            int count=0;
-            for (CheckBox checkBox:checkBoxes ) {
-                if(checkBox.isSelected()){
+            int count = 0;
+            for (CheckBox checkBox : checkBoxes) {
+                if (checkBox.isSelected()) {
                     count++;
                 }
             }
-            if(count == 0){
-                CreateMessBox.popupBoxMess("Please Check 1 Month To Create!",2);
+            if (count == 0) {
+                CreateMessBox.popupBoxMess("Please Check 1 Month To Create!", 2);
                 return;
             }
-            if(count >1){
-                CreateMessBox.popupBoxMess("Please Only Check 1 Month!",2);
+            if (count > 1) {
+                CreateMessBox.popupBoxMess("Please Only Check 1 Month!", 2);
                 return;
             }
-
+            GlobalHandler.err2=false;
             for (int i = 0; i < checkBoxes.size(); i++) {
-                if(checkBoxes.get(i).isSelected()){
-                    if(GlobalHandler.checkMonthExistedCreate(Integer.parseInt(yearField.getText()),i+1)){
-                        CreateMessBox.popupBoxMess("The daily earning for this month is already created.\n" +
-                                "Please either delete the "+yearField.getText()+" - "+GlobalHandler.getMonthName(i+1)+" folder or\n" +
-                                "rename to create new daily earnings.",2);
+                if (checkBoxes.get(i).isSelected()) {
+                    if (!GlobalHandler.checkMonthExistedCreate(Integer.parseInt(yearField.getText()), i + 1)) {
+                        CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Data File In " + yearField.getText() + " - " + GlobalHandler.getMonthName(i + 1) + " Folder\n" +
+                                "To Calculate Salary.", 2);
                         return;
-                    }else {
-                        Calendar calendar = Calendar.getInstance();
-                        try {
-                            calendar.setTime(new SimpleDateFormat("dd/MM/yyyy").parse("1/"+(i+1)+"/"+yearField.getText()));
-                        } catch (ParseException ex) {
-                            ex.printStackTrace();
-                        }
-                        GlobalHandler.day1 = (i+1)+"/"+yearField.getText();
-                        GlobalHandler.numOfDay1 = GlobalHandler.getNumberOfDayInMonth(calendar.getTime());
                     }
+                    if (GlobalHandler.checkMonthExistedCal(Integer.parseInt(yearField.getText()), i + 1)) {
+                        CreateMessBox.popupBoxMess("The Salary.xlsx for this month is already created.\n" +
+                                "Please either delete the " + yearField.getText() + " - " + GlobalHandler.getMonthName(i + 1) + " folder or\n" +
+                                "rename to create new daily earnings.", 2);
+                        return;
+                    }
+                    Calendar calendar = Calendar.getInstance();
+                    try {
+                        calendar.setTime(new SimpleDateFormat("dd/MM/yyyy").parse("1/" + (i + 1) + "/" + yearField.getText()));
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                    GlobalHandler.day2 = (i + 1) + "/" + yearField.getText();
+                    GlobalHandler.numOfDay2 = GlobalHandler.getNumberOfDayInMonth(calendar.getTime());
+                    EmployeeSalaryManager s = new EmployeeSalaryManager();
+                    String path = GlobalHandler.getRootDir()+yearField.getText()+"\\"+GlobalHandler.getMonthName(i+1)+"\\";
+                    s.readDataFromWeekFile(path);
+                    s.readSalaryDetail(path);
+                    if(GlobalHandler.err2)
+                        return;
                 }
             }
-            MainSceneController.anchorPanesCreate.clear();
-            MainSceneController.anchorPanesCreate.put(1,anchorpaneRoot);
-            MainSceneController.anchorPanesCreate.put(2,getCalScene());
+            MainSceneController.anchorPanesCal.clear();
+            MainSceneController.anchorPanesCal.put(1, anchorpaneRoot);
+            MainSceneController.anchorPanesCal.put(2, getCalScene());
+
+
         });
     }
-
-
 
     public void eMonthIconBtn(){
         monthIcon1.setOnMouseClicked(e->{
@@ -341,31 +393,64 @@ public class CreateSceneController implements Initializable {
 
     }
 
-
-    private void showCreatedIcon(){
-        for (ImageView img:icons){
-            img.setVisible(false);
+    private void showCreatedIcon() {
+        for (int i = 0; i < 12; i++) {
+            icons.get(i).setVisible(false);
+            checkBoxes.get(i).setVisible(true);
+            updateIcons.get(i).setVisible(false);
         }
-        for(int i =0; i<12; i++){
-            if(GlobalHandler.checkMonthExistedCreate(Integer.parseInt(yearField.getText()),i+1)){
+        for (int i = 0; i < 12; i++) {
+            if (GlobalHandler.checkMonthExistedCal(Integer.parseInt(yearField.getText()), i + 1)) {
                 icons.get(i).setVisible(true);
+                checkBoxes.get(i).setVisible(false);
+                updateIcons.get(i).setVisible(true);
             }
+
         }
     }
 
-    private AnchorPane getCalScene(){
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SubCreateScene.fxml"));
+    public void eUpdateIconClicked(){
+        for (int i =0; i<12;i++){
+            int finalI = i;
+            updateIcons.get(i).setOnMouseClicked(e->{
+                GlobalHandler.monthToUpdate= finalI +1;
+                GlobalHandler.yearToUpdate=Integer.parseInt(yearField.getText());
+                Stage popupStage = new Stage();
+                popupStage.initOwner(calBtn.getScene().getWindow());
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                popupStage.setResizable(false);
+                popupStage.setTitle("Update");
+                popupStage.setScene(new Scene(getUpdatePopupScene()));
+                popupStage.show();
+            });
+        }
+    }
+
+    private AnchorPane getUpdatePopupScene(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdatePopupScene.fxml"));
         AnchorPane anchorPane = null;
         try {
-            anchorPane = new AnchorPane((AnchorPane)fxmlLoader.load());
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Load Sub CreateScene scene fail!");
+            System.out.println("Load Sub Calculate scene fail!");
             e.printStackTrace();
         }
         return anchorPane;
     }
 
-    private void createInitList(){
+    private AnchorPane getCalScene() {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SubCalScene.fxml"));
+        AnchorPane anchorPane = null;
+        try {
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Load Sub Calculate scene fail!");
+            e.printStackTrace();
+        }
+        return anchorPane;
+    }
+
+    private void createInitList() {
         icons.add(createIcon1);
         icons.add(createIcon2);
         icons.add(createIcon3);
@@ -391,6 +476,19 @@ public class CreateSceneController implements Initializable {
         checkBoxes.add(checkbox10);
         checkBoxes.add(checkbox11);
         checkBoxes.add(checkbox12);
+
+        updateIcons.add(updateIcon1);
+        updateIcons.add(updateIcon2);
+        updateIcons.add(updateIcon3);
+        updateIcons.add(updateIcon4);
+        updateIcons.add(updateIcon5);
+        updateIcons.add(updateIcon6);
+        updateIcons.add(updateIcon7);
+        updateIcons.add(updateIcon8);
+        updateIcons.add(updateIcon9);
+        updateIcons.add(updateIcon10);
+        updateIcons.add(updateIcon11);
+        updateIcons.add(updateIcon12);
 
     }
 }

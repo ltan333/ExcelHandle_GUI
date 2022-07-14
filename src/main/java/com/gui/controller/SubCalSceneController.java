@@ -1,5 +1,9 @@
-package com.gui.minitask_gui;
+package com.gui.controller;
 
+import com.gui.minitask_gui.CreateMessBox;
+import com.gui.minitask_gui.EmployeeSalaryManager;
+import com.gui.minitask_gui.GlobalHandler;
+import com.gui.minitask_gui.SalaryDetail;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -212,7 +216,7 @@ public class SubCalSceneController implements Initializable {
             createBtn.setDisable(true);
             String path = GlobalHandler.getRootDir() + GlobalHandler.day2.split("/")[1] + "\\" + GlobalHandler.getMonthName(Integer.parseInt(GlobalHandler.day2.split("/")[0])) + "\\";
             EmployeeSalaryManager employeeSalaryManager = new EmployeeSalaryManager();
-            employeeSalaryManager.readData(path);
+            employeeSalaryManager.readDataFromWeekFile(path);
             employeeSalaryManager.readSalaryDetail(path);
             employeeSalaryManager.writeData(path);
             initConfig();

@@ -1,9 +1,15 @@
-package com.gui.minitask_gui;
+package com.gui.controller;
 
+import com.gui.minitask_gui.CreateMessBox;
+import com.gui.minitask_gui.EmployeeSalaryManager;
+import com.gui.minitask_gui.GlobalHandler;
+import com.gui.minitask_gui.SalaryDetail;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.*;
@@ -15,13 +21,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.NoSuchElementException;
-import java.util.ResourceBundle;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-public class UpdatePopupController implements Initializable {
+public class UpdateTemplatePopupController implements Initializable {
     @FXML
     private Button cancelBtn;
 
@@ -38,7 +42,19 @@ public class UpdatePopupController implements Initializable {
     private CheckBox checkBox4;
 
     @FXML
+    private CheckBox checkBoxIsOpen;
+
+    @FXML
+    private ToggleGroup chooseDataGroup;
+
+    @FXML
     private Button updateBtn;
+
+    @FXML
+    private RadioButton usingSalaryRadio;
+
+    @FXML
+    private RadioButton usingWeekRadio;
 
     @FXML
     private ImageView weekIcon1;
@@ -52,8 +68,6 @@ public class UpdatePopupController implements Initializable {
     @FXML
     private ImageView weekIcon4;
 
-    @FXML
-    private CheckBox checkBoxIsOpen;
     ////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE/////////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE///////////
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     ArrayList<ImageView> icons = new ArrayList<>();
@@ -64,30 +78,134 @@ public class UpdatePopupController implements Initializable {
         eWeekIconClicked();
         eCancelBtnClicked();
         eUpdateBtnClicked();
+        if(GlobalHandler.chosenMonthTemplate.size()>1){
+            checkBoxIsOpen.setSelected(false);
+            checkBoxIsOpen.setDisable(true);
+        }
     }
 
     public void eUpdateBtnClicked() {
-        GlobalHandler.chosenWeek.clear();
+        GlobalHandler.chosenWeekTemplate.clear();
         updateBtn.setOnAction(e -> {
             for (int i = 0; i < 4; i++) {
                 if (checkBoxes.get(i).isSelected()) {
-                    GlobalHandler.chosenWeek.add(i + 1);
+                    GlobalHandler.chosenWeekTemplate.add(i + 1);
                 }
             }
-            if (GlobalHandler.chosenWeek.isEmpty()) {
+            if (GlobalHandler.chosenWeekTemplate.isEmpty()) {
                 CreateMessBox.popupBoxMess("Please choose a week to update!", 2);
             } else {
                 if (checkBoxIsOpen.isSelected()) {
-                    GlobalHandler.isOpenAfterUpdate = true;
+                    GlobalHandler.isOpenAfterUpdateTemplate = true;
                 } else {
-                    GlobalHandler.isOpenAfterUpdate = false;
+                    GlobalHandler.isOpenAfterUpdateTemplate = false;
                 }
-                String path = GlobalHandler.getRootDir() + GlobalHandler.yearToUpdate + "\\" + GlobalHandler.getMonthName(GlobalHandler.monthToUpdate) + "\\";
-                updateHandle(path);
+                for (Integer i : GlobalHandler.chosenMonthTemplate) {
+                    String path = GlobalHandler.getRootDir() + GlobalHandler.yearToUpdateTemplate + "\\" + GlobalHandler.getMonthName(i) + "\\";
+                    if(usingWeekRadio.isSelected()){
+                        if(!GlobalHandler.checkMonthExistedCreate(GlobalHandler.yearToUpdateTemplate,i)){
+                            CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Data File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(i) + " Folder\n" +
+                                    "To Update.", 2);
+                            return;
+                        }
+                    }else {
+                        if(!GlobalHandler.checkMonthExistedCal(GlobalHandler.yearToUpdateTemplate,i)){
+                            CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Salary File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(i) + " Folder\n" +
+                                    "To Update.", 2);
+                            return;
+                        }
+                    }
+                    updateHandle(path,i);
+                }
                 Stage stage = (Stage) updateBtn.getScene().getWindow();
                 stage.close();
             }
         });
+    }
+
+    private void updateHandle(String path, int month) {
+        EmployeeSalaryManager e = new EmployeeSalaryManager();
+        int year = GlobalHandler.yearToUpdateTemplate;
+        String templatePath = GlobalHandler.srcTemplate;
+        String yearFolder = GlobalHandler.getRootDir() + year + "\\";
+        Path src = Paths.get(templatePath);
+        Path des = Paths.get(path + "Salary_Using_Template.xlsx");
+        //If exist
+        if (GlobalHandler.checkFileExist(new File(path+"Salary_Using_Template.xlsx"))) {
+            Path backup = Paths.get(path + "\\" + "Salary_Using_Template_Backup" + getNumOfBackupFile(path) + ".xlsx");
+            //If using new template
+            if(GlobalHandler.usingTemplateFrom ==1){
+                try {
+                    Files.move(des, backup);
+                    Files.copy(src, des);
+                } catch (IOException ex) {
+                    CreateMessBox.popupBoxMess("Copy Backup File Fail!", 2);
+                    return;
+                }
+            }else if(GlobalHandler.usingTemplateFrom ==2) {
+                try {
+                    Files.copy(des, backup);
+                } catch (IOException ex) {
+                    CreateMessBox.popupBoxMess("Copy Backup File Fail!", 2);
+                    return;
+                }
+            }
+        //If not exist
+        } else {
+            try {
+                Files.copy(src, des);
+            } catch (IOException ex) {
+                CreateMessBox.popupBoxMess("Copy template file fail!", 2);
+                return;
+            }
+        }
+        // Create new thread to read and write faster.
+        new Thread(()->{
+            GlobalHandler.isSuccess = false;
+            //Using data from ?
+            if (usingSalaryRadio.isSelected()) {
+                //Using salary file
+                e.readDataFromSalaryFile(path);
+            } else {
+                //Using week file
+                e.readDataFromWeekFile(path);
+            }
+
+            //handle
+
+            ArrayList<Integer> chosenWeek = GlobalHandler.chosenWeekTemplate;
+            Date date=null;
+            try {
+                date = new SimpleDateFormat("dd/MM/yyyy").parse("1/"+month+"/"+year);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+            if (chosenWeek.contains(1)) {
+                e.updateDataTemplate(path, 1, date);
+            }
+            if (chosenWeek.contains(2)) {
+                e.updateDataTemplate(path, 2, date);
+            }
+            if (chosenWeek.contains(3)) {
+                e.updateDataTemplate(path, 3, date);
+            }
+            if (chosenWeek.contains(4)) {
+                e.updateDataTemplate(path, 4, date);
+            }
+            if(checkBoxIsOpen.isSelected()){
+                new Thread(()->{
+                    try {
+                        String pathUpdateFile = path + "Salary_Using_Template.xlsx";
+                        Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start " + pathUpdateFile});
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        CreateMessBox.popupBoxMess("Open Salary_Using_Template.xlsx is fail!", 2);
+                    }
+                }).start();
+            }
+            GlobalHandler.isSuccess = true;
+        }).start();
+
     }
 
     public void eCancelBtnClicked() {
@@ -126,67 +244,25 @@ public class UpdatePopupController implements Initializable {
                 checkBox4.setSelected(true);
             }
         });
-    }
-
-    private void updateHandle(String path) {
-        EmployeeSalaryManager e = new EmployeeSalaryManager();
-        e.readData(path);
-        if (!GlobalHandler.chosenWeek.isEmpty()) {
-            String backupName = "Salary_Backup" + getNumOfBackupFile(path) + ".xlsx";
-            File salaryFile = new File(path + "Salary.xlsx");
-            Path src = Paths.get(salaryFile.getPath());
-            try {
-                Files.move(src, src.resolveSibling(backupName));
-                Files.copy(Paths.get(path + backupName), Paths.get(path + "Salary.xlsx"), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                CreateMessBox.popupBoxMess("Can't open file. Please close all excel file!", 3);
-            }
-            ArrayList<Integer> chosenWeek = GlobalHandler.chosenWeek;
-            if (false) {
-                //Update all again
-            }
-            new Thread(() -> {
-                if (chosenWeek.contains(1)) {
-                    e.updateData(path, 1);
-                }
-                if (chosenWeek.contains(2)) {
-                    e.updateData(path, 2);
-                }
-                if (chosenWeek.contains(3)) {
-                    e.updateData(path, 3);
-                }
-                if (chosenWeek.contains(4)) {
-                    e.updateData(path, 4);
-                }
-            }).start();
-            e.readSalaryDetail(path);
-            new Thread(()->{
-                writeFileSalaryDetail(path,"Monthy_Earning_Details");
-            }).start();
-            if(checkBoxIsOpen.isSelected()){
-                new Thread(()->{
-                    try {
-                        String pathSalaryDetail = path + "Salary.xlsx";
-                        Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start " + pathSalaryDetail});
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                        CreateMessBox.popupBoxMess("Open Salary.xlsx is fail!", 2);
-                    }
-                }).start();
-            }
-        }
 
     }
+
 
     private int getNumOfBackupFile(String path) {
         File f = new File(path);
         File[] files = f.listFiles();
         ArrayList<Integer> nums = new ArrayList<>();
         for (File file : files) {
-            if (file.isFile() && file.getName().toLowerCase().contains("backup")) {
+            if (file.isFile() && file.getName().toLowerCase().contains("template_backup")) {
                 String[] a = file.getName().split("\\.*[a-zA-Z]+");
-                nums.add(Integer.parseInt(a[2]));
+                for(String c:a){
+                    try {
+                        int i = Integer.parseInt(c);
+                        nums.add(i);
+                    }catch (NumberFormatException ignored){
+                    }
+                }
+
             }
         }
 
@@ -212,6 +288,7 @@ public class UpdatePopupController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void createValue(Sheet sheet, Workbook workbook) {
         ArrayList<SalaryDetail> salaryDetails = GlobalHandler.salaryDetails;
         int cellIndex = 0;

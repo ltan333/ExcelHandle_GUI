@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TotalAll {
     private Date date;
+    private double totalNotTip;
     private double amount;
 
     public Date getDate() {
@@ -25,8 +26,17 @@ public class TotalAll {
     public TotalAll() {
     }
 
-    public TotalAll(Date date, double amount) {
+    public double getTotalNotTip() {
+        return totalNotTip;
+    }
+
+    public void setTotalNotTip(double totalNotTip) {
+        this.totalNotTip = totalNotTip;
+    }
+
+    public TotalAll(Date date, double amount,double totalNotTip) {
         this.date = date;
         this.amount = amount;
+        this.totalNotTip = totalNotTip;
     }
 }

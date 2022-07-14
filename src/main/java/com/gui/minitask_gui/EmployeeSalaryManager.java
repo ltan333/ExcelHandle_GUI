@@ -17,7 +17,7 @@ public class EmployeeSalaryManager {
     private final ArrayList<SalaryDetail> salaryDetails = new ArrayList<>();
 
 
-    public void readData(String path){
+    public void readDataFromWeekFile(String path){
         Calendar calendar = Calendar.getInstance();
         for(int i = 1; i<5; i++){
             String fileName = path+"Week "+i+".xlsx";
@@ -81,7 +81,7 @@ public class EmployeeSalaryManager {
                             }
                         }
                     }
-                    totalAllList.add(new TotalAll(calendar.getTime(),calculateTotalAll(calendar.getTime())));
+                    totalAllList.add(calculateTotalAll(calendar.getTime()));
                     calendar.add(Calendar.DAY_OF_MONTH,1);
                 }
                 inputStream.close();
@@ -92,6 +92,81 @@ public class EmployeeSalaryManager {
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    public void readDataFromSalaryFile(String path){
+        Calendar calendar = Calendar.getInstance();
+        try{
+            InputStream inputStream = new FileInputStream(new File(path+"Salary.xlsx"));
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
+            CellValue cellValue;
+            int numOfRow = 0;
+            int numOfDayInMonth = 0;
+            LinkedList<String> names = new LinkedList<>();
+            LinkedList<Row> rows = new LinkedList<>();
+
+            for(int i=0; i<2;i++){
+                Sheet sheet = workbook.getSheetAt(i);
+                if(i==0){
+                    Row dateRow = sheet.getRow(1);
+                    Cell dateCell = dateRow.getCell(0);
+                    calendar.setTime(dateCell.getDateCellValue());
+                    numOfRow = 15;
+                    numOfDayInMonth = GlobalHandler.getNumberOfDayInMonth(dateCell.getDateCellValue());
+                    Row nameRow = sheet.getRow(0);
+                    for(int cellIndex = 2;cellIndex<1000;cellIndex+=3){
+                        Cell nameCell = nameRow.getCell(cellIndex);
+                        if(!nameRow.getCell(cellIndex).getStringCellValue().isEmpty()){
+                            if(!nameCell.getStringCellValue().equalsIgnoreCase("TOTAL DAILY")){
+                                names.add(nameCell.getStringCellValue().toUpperCase());
+                            }else {
+                                break;
+                            }
+                        }
+                    }
+                }else {
+                    numOfRow = numOfDayInMonth-15;
+                    calendar.add(Calendar.DAY_OF_MONTH,15);
+                }
+
+                if(i==1){
+                    rows.clear();
+                }
+                for(int rowIndex=1;rowIndex<=numOfRow;rowIndex++){
+                    Row dataRow = sheet.getRow(rowIndex);
+                    rows.add(dataRow);
+                }
+
+                int cellIndex = 2;
+                Date firstDay = calendar.getTime();
+                for(String name:names){
+                    Employee e = new Employee();
+                    e.setName(name);
+                    for(Row row:rows){
+                        Cell salaryCell = row.getCell(cellIndex);
+                        Cell tipCell = row.getCell(cellIndex+1);
+                        Cell cashCell = row.getCell(cellIndex+2);
+                        cellValue = formulaEvaluator.evaluate(salaryCell);
+                        double salary = cellValue.getNumberValue();
+                        cellValue = formulaEvaluator.evaluate(tipCell);
+                        double tip = cellValue.getNumberValue();
+                        cellValue = formulaEvaluator.evaluate(cashCell);
+                        double cash = cellValue.getNumberValue();
+                        addEmployee(e,calendar.getTime(),salary,tip,cash);
+                        calendar.add(Calendar.DAY_OF_MONTH,1);
+                    }
+                    calendar.setTime(firstDay);
+                    cellIndex+=3;
+                }
+
+
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found!");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -173,6 +248,8 @@ public class EmployeeSalaryManager {
         GlobalHandler.salaryDetails.addAll(salaryDetails);
     }
 
+
+
     public void updateData(String path,int sheet){
         File file = new File(path+"Salary.xlsx");
         Calendar calendar = Calendar.getInstance();
@@ -198,6 +275,44 @@ public class EmployeeSalaryManager {
                 calendar.add(Calendar.DAY_OF_MONTH,22);
                 //create value update
                 createValueUpdate(workbook,sheet2,4,calendar);
+            }
+            inputStream.close();
+            OutputStream outputStream = new FileOutputStream(file);
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDataTemplate(String path,int sheet, Date date){
+        File file = new File(path+"Salary_Using_Template.xlsx");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet1 = workbook.getSheetAt(0);
+            Sheet sheet2 = workbook.getSheetAt(1);
+            if(sheet==1){
+                //create value update
+                createValueUpdateTemplate(workbook,sheet1,1,calendar);
+            }else if(sheet == 2){
+                calendar.add(Calendar.DAY_OF_MONTH,7);
+                //create value update
+                createValueUpdateTemplate(workbook,sheet1,2,calendar);
+            }else if(sheet == 3){
+                calendar.add(Calendar.DAY_OF_MONTH,15);
+                //create value update
+                createValueUpdateTemplate(workbook,sheet2,3,calendar);
+            }else if(sheet == 4){
+                calendar.add(Calendar.DAY_OF_MONTH,22);
+                //create value update
+                createValueUpdateTemplate(workbook,sheet2,4,calendar);
             }
             inputStream.close();
             OutputStream outputStream = new FileOutputStream(file);
@@ -255,7 +370,7 @@ public class EmployeeSalaryManager {
                 }
                 //Add total value
                 Cell totalCell = row.createCell(cellIndex);
-                totalCell.setCellValue(getATotalAll(date).getAmount());
+                totalCell.setCellValue(getATotalAll(date).getTotalNotTip());
                 Cell recepCell = row.createCell(cellIndex + 1);
                 recepCell.setCellValue(0);
                 Cell recepCell2 = row.createCell(cellIndex + 2);
@@ -286,6 +401,100 @@ public class EmployeeSalaryManager {
 
     }
 
+    private void createValueUpdateTemplate(Workbook workbook, Sheet sheet,int week, Calendar calendar){
+        //String colName = CellReference.convertNumToColString(c.getColumnIndex()) + (c.getRowIndex());
+        // Get number of days in month
+        int numberDateOfMonth = getNumberOfDayInMonth(calendar.getTime());
+        LinkedList<String> names = new LinkedList<>();
+        LinkedList<String> columnNames = new LinkedList<>();
+        CellStyle cellStyle = workbook.createCellStyle();
+        CreationHelper createHelper = workbook.getCreationHelper();
+        cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("MM-dd"));
+        //
+        int numDayInSheet= 0;
+        int rowIndex = 0;
+        if(week==1){
+            numDayInSheet = 7;
+            rowIndex =1;
+        }
+        else if(week == 2){
+            rowIndex =8;
+            numDayInSheet=15;
+        }
+        else if (week ==3){
+            rowIndex=1;
+            numDayInSheet=7;
+        }
+        else {
+            rowIndex=8;
+            numDayInSheet = numberDateOfMonth - 15;
+        }
+        //Get all name by order
+        Row nameRow = sheet.getRow(0);
+        for(int cellIndex = 2;cellIndex<1000;cellIndex+=3){
+            Cell nameCell = nameRow.getCell(cellIndex);
+            if(!nameRow.getCell(cellIndex).getStringCellValue().isEmpty()){
+                if(!nameCell.getStringCellValue().equalsIgnoreCase("TOTAL DAILY")){
+                    names.add(nameCell.getStringCellValue().toUpperCase());
+                    columnNames.add(CellReference.convertNumToColString(nameCell.getColumnIndex()));
+                }else {
+                    break;
+                }
+            }else {
+                //Name column empty
+                names.add("empty");
+                columnNames.add(" ");
+            }
+        }
+        //Set value of name by order
+        for(int rowIndex1 = rowIndex;rowIndex1<=numDayInSheet;rowIndex1++){
+            int cellIndex = 2;
+            Row row = sheet.getRow(rowIndex1);
+            Cell dateCell = row.getCell(0);
+            Cell dayOfWeekCell = row.getCell(1);
+            dateCell.setCellValue(calendar.getTime());
+            dateCell.setCellStyle(cellStyle);
+            dayOfWeekCell.setCellValue(new SimpleDateFormat("EEE", Locale.getDefault()).format(calendar.getTime()));
+            StringBuilder formulaTotal = new StringBuilder();
+            for(int i=0;i<names.size();i++){
+                if(!names.get(i).equalsIgnoreCase("empty")){
+                    double[] amount= getAllSalaryByNameAndDate(calendar.getTime(),names.get(i));
+                    Cell salary = row.createCell(cellIndex);
+                    Cell tip = row.createCell(cellIndex+1);
+                    Cell cash = row.createCell(cellIndex+2);
+                    salary.setCellValue(amount[0]);
+                    tip.setCellValue(amount[1]);
+                    cash.setCellValue(amount[2]);
+                    formulaTotal.append(columnNames.get(i)).append(salary.getRowIndex() + 1).append(" ");
+                }
+                cellIndex+=3;
+            }
+            Cell totalDaily = row.createCell(cellIndex,CellType.FORMULA);
+            formulaTotal = new StringBuilder(formulaTotal.toString().strip().replace(" ", ","));
+            totalDaily.setCellFormula("SUM("+formulaTotal+")");
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+        }
+
+
+    }
+
+    private double[] getAllSalaryByNameAndDate(Date date, String name){
+        double[] amount = new double[3];
+        for(Employee e:employees){
+            if(e.getName().equalsIgnoreCase(name)){
+                for(SalaryOfDate s: e.getAllSalaryEachDay()){
+                    if(s.getDate().compareTo(date)==0){
+                        amount[0]=s.getSalary();
+                        amount[1]=s.getTip();
+                        amount[2]=s.getCash();
+                        return amount;
+                    }
+                }
+            }
+        }
+        return amount;
+    }
+
     public void writeData(String path) {
         try {
             OutputStream outputStream;
@@ -308,7 +517,6 @@ public class EmployeeSalaryManager {
     }
 
     private void createValue(Sheet sheet, Workbook wb, Calendar calendar) {
-
         // Get number of days in month
         int numberDateOfMonth = getNumberOfDayInMonth(calendar.getTime());
         //
@@ -360,7 +568,7 @@ public class EmployeeSalaryManager {
                 }
                 //Add total value
                 Cell totalCell = row.createCell(cellIndex);
-                totalCell.setCellValue(getATotalAll(calendar.getTime()).getAmount());
+                totalCell.setCellValue(getATotalAll(calendar.getTime()).getTotalNotTip());
                 Cell recepCell = row.createCell(cellIndex + 1);
                 recepCell.setCellValue(0);
                 Cell recepCell2 = row.createCell(cellIndex + 2);
@@ -387,7 +595,7 @@ public class EmployeeSalaryManager {
             } else if (rowIndex == 18) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("50%");
-                for (Employee e : employees) {
+                for (Employee ignored : employees) {
                     Cell c = row.createCell(cellIndex, CellType.FORMULA);
                     String colName = CellReference.convertNumToColString(c.getColumnIndex()) + (c.getRowIndex());
                     c.setCellFormula(colName + "*50/100");
@@ -400,7 +608,7 @@ public class EmployeeSalaryManager {
             } else if (rowIndex == 19) {
                 Cell percenCell = row.createCell(0);
                 percenCell.setCellValue("60%");
-                for (Employee e : employees) {
+                for (Employee ignored : employees) {
                     Cell c = row.createCell(cellIndex, CellType.FORMULA);
                     String colName = CellReference.convertNumToColString(c.getColumnIndex()) + (c.getRowIndex() - 1);
                     c.setCellFormula(colName + "*60/100");
@@ -681,6 +889,8 @@ public class EmployeeSalaryManager {
             }
 
             rowIndex++;
+            ///////DROP/////////DROP////////DROP////////DROP//////////DROP/////////DROP/////////////DROP//////////DROP////////////DROP/////////////
+
         }
     }
 
@@ -701,12 +911,15 @@ public class EmployeeSalaryManager {
         }
     }
 
-    public double calculateTotalAll(Date date) {
+    public TotalAll calculateTotalAll(Date date) {
+        TotalAll tt = new TotalAll();
         double total = 0;
+        double totalNotTip=0;
         for (Employee e : employees) {
             for (SalaryOfDate salaryOfDate : e.getAllSalaryEachDay()) {
                 if (salaryOfDate.getDate().compareTo(date) == 0) {
                     total += salaryOfDate.getSalary() + salaryOfDate.getTip() + salaryOfDate.getCash();
+                    totalNotTip+=salaryOfDate.getSalary();
                 }
             }
         }
@@ -715,7 +928,11 @@ public class EmployeeSalaryManager {
                 total += gs.getAmount();
             }
         }
-        return total;
+        tt.setDate(date);
+        tt.setTotalNotTip(totalNotTip);
+        tt.setAmount(total);
+
+        return tt;
     }
 
     public double getGiftSellOfDate(Date date){
@@ -757,7 +974,7 @@ public class EmployeeSalaryManager {
         for (int i = 0; i < 15; i++) {
             for (TotalAll t : totalAllList) {
                 if (t.getDate().compareTo(calendar.getTime()) == 0) {
-                    total += t.getAmount();
+                    total += t.getTotalNotTip();
                 }
             }
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -773,7 +990,7 @@ public class EmployeeSalaryManager {
         for (int i = 0; i < numberOfDateInMonth - 15; i++) {
             for (TotalAll t : totalAllList) {
                 if (t.getDate().compareTo(calendar.getTime()) == 0) {
-                    total += t.getAmount();
+                    total += t.getTotalNotTip();
                 }
             }
             calendar.add(Calendar.DAY_OF_MONTH, 1);

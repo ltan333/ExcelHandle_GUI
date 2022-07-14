@@ -1,5 +1,7 @@
-package com.gui.minitask_gui;
+package com.gui.controller;
 
+import com.gui.minitask_gui.GlobalHandler;
+import com.gui.minitask_gui.Main;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +14,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
@@ -28,7 +33,8 @@ public class MainSceneController implements Initializable {
     @FXML
     private Button calculateBtn;
 
-
+    @FXML
+    private Button updateTemplateBtn;
 
     @FXML
     private ImageView closeBtn;
@@ -44,8 +50,7 @@ public class MainSceneController implements Initializable {
     //============================================================================//
     public static ObservableMap<Integer, AnchorPane> anchorPanesCreate = FXCollections.observableHashMap();
     public static ObservableMap<Integer, AnchorPane> anchorPanesCal = FXCollections.observableHashMap();
-
-
+    private final ArrayList<Button> buttons = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GlobalHandler.mouseEnteredRotateEffect(closeBtn, closeBtn, 180);
@@ -53,11 +58,16 @@ public class MainSceneController implements Initializable {
         eCloseAndMinimizeClicked();
         eCreateBtnClicked();
         eCalculateBtnClicked();
+        eUpdateTemplateBtnClicked();
         borderPane.setCenter(getManScene());
         eSubListener();
         rootPathField.setText(GlobalHandler.getRootDir());
         eChangeBtnClicked();
         eRootPathClicked();
+        buttons.add(calculateBtn);
+        buttons.add(updateTemplateBtn);
+        buttons.add(createBtn);
+        focusBtnEffect(buttons);
     }
 
     public void eChangeBtnClicked() {
@@ -130,6 +140,10 @@ public class MainSceneController implements Initializable {
         calculateBtn.setOnMouseClicked(e -> borderPane.setCenter(getCalScene()));
     }
 
+    public void eUpdateTemplateBtnClicked() {
+        updateTemplateBtn.setOnMouseClicked(e -> borderPane.setCenter(getUpdateTemplateScene()));
+    }
+
     public void eCloseAndMinimizeClicked() {
         closeBtn.setOnMouseClicked(mouseEvent -> {
             Stage stage = (Stage) createBtn.getScene().getWindow();
@@ -175,11 +189,74 @@ public class MainSceneController implements Initializable {
         return anchorPane;
     }
 
+    private AnchorPane getUpdateTemplateScene(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("UpdateTemplateScene.fxml"));
+        AnchorPane anchorPane = null;
+        try {
+            anchorPane = new AnchorPane((AnchorPane) fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Load manual scene fail!");
+        }
+        return anchorPane;
 
-    private void a() {
-        createBtn.setOnMouseEntered(e -> {
-        });
     }
+
+    public void focusBtnEffect(ArrayList<Button> btns){
+        Runnable runnable = () -> {
+            HashMap<Button,Boolean> isFocusButtons = new HashMap<>();
+            for(Button b : btns){
+                isFocusButtons.put(b,false);
+            }
+            ///FOCUS/////FOCUS//////FOCUS//////FOCUS//////////FOCUS///////////FOCUS///
+            for(Button btn : btns){
+                btn.setOnAction(e ->{
+                    isFocusButtons.put(btn,true);
+                    btn.setStyle(" -fx-background-color:  #8e9bdc;\n" +
+                            "    -fx-cursor: default;\n" +
+                            "    -fx-font-size: 14px;");
+                    for(Button btn2 : btns){
+                        if(btn2!=btn) {
+                            isFocusButtons.put(btn2,false);
+                            btn2.setStyle("    -fx-cursor: hand;\n" +
+                                    "-fx-background-color: #6b739e;\n" +
+                                    "    -fx-font-size: 13px;\n" +
+                                    "    -fx-text-fill: white;\n" +
+                                    "    -fx-focus-color:  transparent;" +
+                                    "");
+                        }
+
+                    }
+
+
+                });
+            }
+            ///HOVER////////HOVER////////HOVER////////HOVER/////////HOVER//////HOVER///////////
+            for(Button b: btns){
+                b.setOnMouseEntered(e ->{
+                    if(!isFocusButtons.get(b)){
+                        b.setStyle("-fx-background-color:  #8e9bdc;\n" +
+                                "    -fx-cursor: hand;\n" +
+                                "    -fx-font-size: 14px;");
+                    }
+
+                });
+                b.setOnMouseExited(e->{
+                    if(!isFocusButtons.get(b)){
+                        b.setStyle("    -fx-cursor: default;\n" +
+                                "-fx-background-color: #6b739e;\n" +
+                                "    -fx-font-size: 13px;\n" +
+                                "    -fx-text-fill: white;\n" +
+                                "    -fx-focus-color:  transparent;" +
+                                "");
+                    }
+                });
+            }
+
+        };
+        Thread t = new Thread(runnable);
+        t.start();
+    }
+
 
     private Scene getLocateScene() {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LocateScene.fxml"));

@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpaneRoot" prefHeight="540.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.gui.minitask_gui.CreateSceneController">
+<AnchorPane fx:id="anchorpaneRoot" prefHeight="540.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.gui.controller.CreateSceneController">
    <children>
       <VBox layoutX="4.0" prefHeight="540.0" prefWidth="700.0">
          <children>

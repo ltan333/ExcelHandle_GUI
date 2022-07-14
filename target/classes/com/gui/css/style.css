@@ -9,12 +9,13 @@
     -fx-font-size: 13px;
     -fx-text-fill: white;
     -fx-focus-color:  transparent;
+    -fx-cursor: hand;
 }
 
 #mainBtn:hover{
-    -fx-background-color:  #8e9bdc;
-    -fx-cursor: hand;
-    -fx-font-size: 14px;
+    /*-fx-background-color:  #8e9bdc;*/
+    /*-fx-cursor: hand;*/
+    /*-fx-font-size: 14px;*/
 }
 #btn{
     -fx-background-color:     #6b739e;

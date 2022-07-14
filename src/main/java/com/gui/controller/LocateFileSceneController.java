@@ -1,5 +1,8 @@
-package com.gui.minitask_gui;
+package com.gui.controller;
 
+import com.gui.minitask_gui.CreateMessBox;
+import com.gui.minitask_gui.GlobalHandler;
+import com.gui.minitask_gui.Main;
 import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -49,7 +52,7 @@ public class LocateFileSceneController implements Initializable {
     public void eNextBtnClicked(){
         nextBtn.setOnAction(actionEvent -> {
             File f = new File(pathField.getText());
-            if(checkPaymentFileValid(f) && GlobalHandler.checkPaymentFileExist(f)){
+            if(checkPaymentFileValid(f) && GlobalHandler.checkFileExist(f)){
                 GlobalHandler.writeConfigFile(pathField.getText());
                 GlobalHandler.setRootDir(pathField.getText());
                 Stage stage = (Stage) nextBtn.getScene().getWindow();
@@ -114,7 +117,7 @@ public class LocateFileSceneController implements Initializable {
     public void ePathFieldKeyClicked(){
         pathField.setOnKeyReleased(e -> {
             File f = new File(pathField.getText());
-            if(GlobalHandler.checkPaymentFileExist(f)){
+            if(GlobalHandler.checkFileExist(f)){
                 updateStatusField(0);
             }else {
                 updateStatusField(1);

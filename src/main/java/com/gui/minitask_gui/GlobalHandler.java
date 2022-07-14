@@ -25,11 +25,19 @@ public class GlobalHandler {
     public static String day2 = "";
     public static int numOfDay2 = 0;
     public static boolean err2= false;
-    public static int monthToUpdate=0;
-    public static int yearToUpdate=0;
     //Var of UpdatePopupScene
     public static ArrayList<Integer> chosenWeek = new ArrayList<>();
     public static boolean isOpenAfterUpdate = true;
+    public static int monthToUpdate=0;
+    public static int yearToUpdate=0;
+    //Var of UpdateTemplateScene
+    public static LinkedList<Integer> chosenMonthTemplate = new LinkedList<>();
+    public static ArrayList<Integer> chosenWeekTemplate = new ArrayList<>();
+    public static boolean isOpenAfterUpdateTemplate = true;
+    public static int usingTemplateFrom = 0; //1=new, 2=exist
+    public static int yearToUpdateTemplate =0;
+    public static String srcTemplate = "";
+    public static boolean isSuccess = false;
     // Salary detail
     public static ArrayList<SalaryDetail> salaryDetails = new ArrayList<>();
     /////GLOBAL_VAR/////GLOBAL_VAR//////GLOBAL_VAR///////GLOBAL_VAR/////////GLOBAL_VAR//////GLOBAL_VAR/////GLOBAL_VAR/////
@@ -84,7 +92,7 @@ public class GlobalHandler {
         }
     }
 
-    public static boolean checkPaymentFileExist(File file) {
+    public static boolean checkFileExist(File file) {
         if(file.exists()){
             return true;
         }
@@ -164,6 +172,18 @@ public class GlobalHandler {
             return false;
 
         File file1 = new File(path+"Salary.xlsx");
+        if(!file1.exists())
+            return false;
+        return true;
+    }
+
+    public static boolean checkMonthExistedUpdateTemplate(int year, int month) {
+        String path = getRootDir() + year + "\\" + getMonthName(month) + "\\";
+        File file = new File(path);
+        if (!file.exists())
+            return false;
+
+        File file1 = new File(path+"Salary_Using_Template.xlsx");
         if(!file1.exists())
             return false;
         return true;

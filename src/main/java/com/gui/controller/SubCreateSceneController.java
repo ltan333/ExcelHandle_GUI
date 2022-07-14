@@ -1,10 +1,13 @@
-package com.gui.minitask_gui;
+package com.gui.controller;
 
+import com.gui.minitask_gui.CreateMessBox;
+import com.gui.minitask_gui.GlobalHandler;
+import com.gui.minitask_gui.InputValidation;
+import com.gui.minitask_gui.TextFileHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
