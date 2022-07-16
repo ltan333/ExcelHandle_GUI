@@ -71,6 +71,7 @@ public class UpdateTemplatePopupController implements Initializable {
     ////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE/////////VARIABLE//////VARIABLE//////////VARIABLE/////////VARIABLE///////////
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     ArrayList<ImageView> icons = new ArrayList<>();
+    LinkedList<Thread> threads = new LinkedList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,7 +79,7 @@ public class UpdateTemplatePopupController implements Initializable {
         eWeekIconClicked();
         eCancelBtnClicked();
         eUpdateBtnClicked();
-        if(GlobalHandler.chosenMonthTemplate.size()>1){
+        if (GlobalHandler.chosenMonthTemplate.size() > 1) {
             checkBoxIsOpen.setSelected(false);
             checkBoxIsOpen.setDisable(true);
         }
@@ -86,6 +87,7 @@ public class UpdateTemplatePopupController implements Initializable {
 
     public void eUpdateBtnClicked() {
         GlobalHandler.chosenWeekTemplate.clear();
+        GlobalHandler.withoutEmployee.clear();
         updateBtn.setOnAction(e -> {
             for (int i = 0; i < 4; i++) {
                 if (checkBoxes.get(i).isSelected()) {
@@ -100,22 +102,36 @@ public class UpdateTemplatePopupController implements Initializable {
                 } else {
                     GlobalHandler.isOpenAfterUpdateTemplate = false;
                 }
-                for (Integer i : GlobalHandler.chosenMonthTemplate) {
-                    String path = GlobalHandler.getRootDir() + GlobalHandler.yearToUpdateTemplate + "\\" + GlobalHandler.getMonthName(i) + "\\";
-                    if(usingWeekRadio.isSelected()){
-                        if(!GlobalHandler.checkMonthExistedCreate(GlobalHandler.yearToUpdateTemplate,i)){
-                            CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Data File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(i) + " Folder\n" +
+                for (Integer month : GlobalHandler.chosenMonthTemplate) {
+                    String path = GlobalHandler.getRootDir() + GlobalHandler.yearToUpdateTemplate + "\\" + GlobalHandler.getMonthName(month) + "\\";
+                    if (usingWeekRadio.isSelected()) {
+                        if (!GlobalHandler.checkMonthExistedCreate(GlobalHandler.yearToUpdateTemplate, month)) {
+                            CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Data File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(month) + " Folder\n" +
                                     "To Update.", 2);
                             return;
                         }
-                    }else {
-                        if(!GlobalHandler.checkMonthExistedCal(GlobalHandler.yearToUpdateTemplate,i)){
-                            CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Salary File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(i) + " Folder\n" +
+                    } else {
+                        if (!GlobalHandler.checkMonthExistedCal(GlobalHandler.yearToUpdateTemplate, month)) {
+                            CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Salary File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(month) + " Folder\n" +
                                     "To Update.", 2);
                             return;
                         }
                     }
-                    updateHandle(path,i);
+                    // UPDATE
+                    updateHandle(path, month);
+                }
+                //SHOW notification
+                while (true) {
+                    if (threads.size() == GlobalHandler.chosenMonthTemplate.size()) {
+                        if (GlobalHandler.checkThreadsIsDone(threads)) {
+                            Set<String> without = new HashSet<>(GlobalHandler.withoutEmployee);
+                            if(!without.isEmpty()){
+                                CreateMessBox.popupBoxMessContent("Some employees do not exist in the template file!", without.toString(), 1);
+                            }
+                            break;
+                        }
+                    }
+
                 }
                 Stage stage = (Stage) updateBtn.getScene().getWindow();
                 stage.close();
@@ -131,10 +147,10 @@ public class UpdateTemplatePopupController implements Initializable {
         Path src = Paths.get(templatePath);
         Path des = Paths.get(path + "Salary_Using_Template.xlsx");
         //If exist
-        if (GlobalHandler.checkFileExist(new File(path+"Salary_Using_Template.xlsx"))) {
+        if (GlobalHandler.checkFileExist(new File(path + "Salary_Using_Template.xlsx"))) {
             Path backup = Paths.get(path + "\\" + "Salary_Using_Template_Backup" + getNumOfBackupFile(path) + ".xlsx");
             //If using new template
-            if(GlobalHandler.usingTemplateFrom ==1){
+            if (GlobalHandler.usingTemplateFrom == 1) {
                 try {
                     Files.move(des, backup);
                     Files.copy(src, des);
@@ -142,7 +158,7 @@ public class UpdateTemplatePopupController implements Initializable {
                     CreateMessBox.popupBoxMess("Copy Backup File Fail!", 2);
                     return;
                 }
-            }else if(GlobalHandler.usingTemplateFrom ==2) {
+            } else if (GlobalHandler.usingTemplateFrom == 2) {
                 try {
                     Files.copy(des, backup);
                 } catch (IOException ex) {
@@ -150,7 +166,7 @@ public class UpdateTemplatePopupController implements Initializable {
                     return;
                 }
             }
-        //If not exist
+            //If not exist
         } else {
             try {
                 Files.copy(src, des);
@@ -160,7 +176,8 @@ public class UpdateTemplatePopupController implements Initializable {
             }
         }
         // Create new thread to read and write faster.
-        new Thread(()->{
+        new Thread(() -> {
+            threads.add(Thread.currentThread());
             GlobalHandler.isSuccess = false;
             //Using data from ?
             if (usingSalaryRadio.isSelected()) {
@@ -170,13 +187,12 @@ public class UpdateTemplatePopupController implements Initializable {
                 //Using week file
                 e.readDataFromWeekFile(path);
             }
-
             //handle
 
             ArrayList<Integer> chosenWeek = GlobalHandler.chosenWeekTemplate;
-            Date date=null;
+            Date date = null;
             try {
-                date = new SimpleDateFormat("dd/MM/yyyy").parse("1/"+month+"/"+year);
+                date = new SimpleDateFormat("dd/MM/yyyy").parse("1/" + month + "/" + year);
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }
@@ -192,8 +208,8 @@ public class UpdateTemplatePopupController implements Initializable {
             if (chosenWeek.contains(4)) {
                 e.updateDataTemplate(path, 4, date);
             }
-            if(checkBoxIsOpen.isSelected()){
-                new Thread(()->{
+            if (checkBoxIsOpen.isSelected()) {
+                new Thread(() -> {
                     try {
                         String pathUpdateFile = path + "Salary_Using_Template.xlsx";
                         Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start " + pathUpdateFile});
@@ -255,11 +271,11 @@ public class UpdateTemplatePopupController implements Initializable {
         for (File file : files) {
             if (file.isFile() && file.getName().toLowerCase().contains("template_backup")) {
                 String[] a = file.getName().split("\\.*[a-zA-Z]+");
-                for(String c:a){
+                for (String c : a) {
                     try {
                         int i = Integer.parseInt(c);
                         nums.add(i);
-                    }catch (NumberFormatException ignored){
+                    } catch (NumberFormatException ignored) {
                     }
                 }
 

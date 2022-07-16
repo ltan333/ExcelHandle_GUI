@@ -402,7 +402,6 @@ public class EmployeeSalaryManager {
     }
 
     private void createValueUpdateTemplate(Workbook workbook, Sheet sheet,int week, Calendar calendar){
-        //String colName = CellReference.convertNumToColString(c.getColumnIndex()) + (c.getRowIndex());
         // Get number of days in month
         int numberDateOfMonth = getNumberOfDayInMonth(calendar.getTime());
         LinkedList<String> names = new LinkedList<>();
@@ -473,9 +472,20 @@ public class EmployeeSalaryManager {
             formulaTotal = new StringBuilder(formulaTotal.toString().strip().replace(" ", ","));
             totalDaily.setCellFormula("SUM("+formulaTotal+")");
             calendar.add(Calendar.DAY_OF_MONTH,1);
+
         }
+        LinkedList<String> withoutName =getAllEmployeeName();
+        withoutName.removeAll(names);
+        GlobalHandler.withoutEmployee.addAll(withoutName);
 
+    }
 
+    private LinkedList<String> getAllEmployeeName(){
+        LinkedList<String> allEmployee = new LinkedList<>();
+        for(Employee e:employees){
+            allEmployee.add(e.getName());
+        }
+        return allEmployee;
     }
 
     private double[] getAllSalaryByNameAndDate(Date date, String name){

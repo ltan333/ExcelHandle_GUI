@@ -60,9 +60,6 @@ public class TextFileHandler {
             System.out.println("Can't read Payment_Calculation.txt");
             CreateMessBox.popupBoxMess("Can't read Manual.txt",2);
             e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Can't read Payment_Calculation.txt");
-            CreateMessBox.popupBoxMess("Can't read Manual.txt",2);
         }
         return null;
     }

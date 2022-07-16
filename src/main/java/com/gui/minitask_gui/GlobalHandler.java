@@ -33,6 +33,7 @@ public class GlobalHandler {
     //Var of UpdateTemplateScene
     public static LinkedList<Integer> chosenMonthTemplate = new LinkedList<>();
     public static ArrayList<Integer> chosenWeekTemplate = new ArrayList<>();
+    public static LinkedList<String> withoutEmployee = new LinkedList<>();
     public static boolean isOpenAfterUpdateTemplate = true;
     public static int usingTemplateFrom = 0; //1=new, 2=exist
     public static int yearToUpdateTemplate =0;
@@ -61,13 +62,8 @@ public class GlobalHandler {
             Scanner scanner = new Scanner(configFile);
             if (scanner.hasNextLine()) {
                 String path = scanner.nextLine();
-                try {
-                    scanner = new Scanner(new File(path));
-                    setRootDir(path);
-                    return true;
-                } catch (FileNotFoundException e) {
-                    return false;
-                }
+                setRootDir(path);
+                return true;
             }
         } catch (FileNotFoundException e) {
             try {
@@ -485,5 +481,14 @@ public class GlobalHandler {
 
     }
 
+    public static boolean checkThreadsIsDone(List<Thread> threads){
+
+        for (Thread thread:threads){
+            if(thread.isAlive()){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
