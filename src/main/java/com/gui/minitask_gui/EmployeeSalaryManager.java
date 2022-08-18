@@ -9,7 +9,6 @@ import java.time.YearMonth;
 import java.util.*;
 
 public class EmployeeSalaryManager {
-    private String folderPath = "";
     private Date dateInFile;
     private final ArrayList<Employee> employees = new ArrayList<>();
     private final ArrayList<GiftSell> giftSellList = new ArrayList<>();
@@ -46,7 +45,7 @@ public class EmployeeSalaryManager {
                         int cellIndex = 1;
                         while (true){
                             Row nameRow = sheet.getRow(rowIndex);
-                            Row totalRow = sheet.getRow(rowIndex+18);
+                            Row totalRow = sheet.getRow(getTotalRowNumber(sheet));
                             try{
                                 Cell nameCell = nameRow.getCell(cellIndex);
                                 if(!nameRow.getCell(cellIndex).getStringCellValue().isEmpty()){
@@ -77,6 +76,12 @@ public class EmployeeSalaryManager {
                                 }
                                 cellIndex+=3;
                             } catch (NullPointerException e) {
+                                if(nameRow.getCell(cellIndex)!=null){
+                                    if(nameRow.getCell(cellIndex).getStringCellValue().equalsIgnoreCase("gift sell")){
+                                        break;
+                                    }
+                                }
+
                                 cellIndex+=3;
                             }
                         }
@@ -93,6 +98,28 @@ public class EmployeeSalaryManager {
             }
 
         }
+    }
+
+    public int getTotalRowNumber(Sheet sheet){
+        int rowNum = -1;
+        int rowIndex = 1;
+        Cell cell;
+        while (true){
+            try{
+                cell = sheet.getRow(++rowIndex).getCell(0);
+                if(cell.getStringCellValue().equalsIgnoreCase("total")){
+                    rowNum = rowIndex;
+                    break;
+                }
+                if(rowIndex>= 100){
+                    return -1;
+                }
+            }catch (NullPointerException ex){
+                continue;
+            }
+        }
+
+        return rowNum;
     }
 
     public void readDataFromSalaryFile(String path){
@@ -192,28 +219,28 @@ public class EmployeeSalaryManager {
                 for (int sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++) {
                     Sheet sheet = workbook.getSheetAt(sheetIndex);
                     giftSell+=getGiftSellOfDate(calendar.getTime());
-                    //Get value of day row 22 -> 39
-                    for (int rowIndex = 21; rowIndex < 40; rowIndex++) {
+                    int totalRow = getTotalRowNumber(sheet);
+                    for (int rowIndex = 1; rowIndex < totalRow+10; rowIndex++) {
                         Row row = sheet.getRow(rowIndex);
                         Cell cell;
                         try{
-                            if (rowIndex == 21) {
+                            if (rowIndex == totalRow+2) {
                                 cell = row.getCell(19);
                                 cellValue = formulaEvaluator.evaluate(cell);
                                 cash += cellValue.getNumberValue();
-                            } else if (rowIndex == 22) {
+                            } else if (rowIndex == totalRow+3) {
                                 cell = row.getCell(19);
                                 cellValue = formulaEvaluator.evaluate(cell);
                                 cre += cellValue.getNumberValue();
-                            } else if (rowIndex == 23) {
+                            } else if (rowIndex == totalRow+4) {
                                 cell = row.getCell(19);
                                 cellValue = formulaEvaluator.evaluate(cell);
                                 venmo += cellValue.getNumberValue();
-                            } else if (rowIndex == 24) {
+                            } else if (rowIndex == totalRow+5) {
                                 cell = row.getCell(19);
                                 cellValue = formulaEvaluator.evaluate(cell);
                                 zelle += cellValue.getNumberValue();
-                            } else if (rowIndex == 25) {
+                            } else if (rowIndex == totalRow+6) {
                                 cell = row.getCell(19);
                                 cellValue = formulaEvaluator.evaluate(cell);
                                 giftTakeIn += cellValue.getNumberValue();
