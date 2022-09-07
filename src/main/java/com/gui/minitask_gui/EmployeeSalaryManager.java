@@ -431,7 +431,7 @@ public class EmployeeSalaryManager {
     private void createValueUpdateTemplate(Workbook workbook, Sheet sheet,int week, Calendar calendar){
         // Get number of days in month
         int numberDateOfMonth = getNumberOfDayInMonth(calendar.getTime());
-        LinkedList<String> names = new LinkedList<>();
+        LinkedList<String> templateNames = new LinkedList<>();
         LinkedList<String> columnNames = new LinkedList<>();
         CellStyle cellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
@@ -461,14 +461,14 @@ public class EmployeeSalaryManager {
             Cell nameCell = nameRow.getCell(cellIndex);
             if(!nameRow.getCell(cellIndex).getStringCellValue().isEmpty()){
                 if(!nameCell.getStringCellValue().equalsIgnoreCase("TOTAL DAILY")){
-                    names.add(nameCell.getStringCellValue().toUpperCase());
+                    templateNames.add(nameCell.getStringCellValue().toUpperCase());
                     columnNames.add(CellReference.convertNumToColString(nameCell.getColumnIndex()));
                 }else {
                     break;
                 }
             }else {
                 //Name column empty
-                names.add("empty");
+                templateNames.add("empty");
                 columnNames.add(" ");
             }
         }
@@ -482,9 +482,9 @@ public class EmployeeSalaryManager {
             dateCell.setCellStyle(cellStyle);
             dayOfWeekCell.setCellValue(new SimpleDateFormat("EEE", Locale.getDefault()).format(calendar.getTime()));
             StringBuilder formulaTotal = new StringBuilder();
-            for(int i=0;i<names.size();i++){
-                if(!names.get(i).equalsIgnoreCase("empty")){
-                    double[] amount= getAllSalaryByNameAndDate(calendar.getTime(),names.get(i));
+            for(int i=0;i<templateNames.size();i++){
+                if(!templateNames.get(i).equalsIgnoreCase("empty")){
+                    double[] amount= getAllSalaryByNameAndDate(calendar.getTime(),templateNames.get(i));
                     Cell salary = row.createCell(cellIndex);
                     Cell tip = row.createCell(cellIndex+1);
                     Cell cash = row.createCell(cellIndex+2);
@@ -501,18 +501,27 @@ public class EmployeeSalaryManager {
             calendar.add(Calendar.DAY_OF_MONTH,1);
 
         }
-        LinkedList<String> withoutName =getAllEmployeeName();
-        withoutName.removeAll(names);
-        GlobalHandler.withoutEmployee.addAll(withoutName);
+
+        GlobalHandler.withoutEmployee.addAll(getEmployeesWithout(templateNames));
 
     }
 
-    private LinkedList<String> getAllEmployeeName(){
-        LinkedList<String> allEmployee = new LinkedList<>();
-        for(Employee e:employees){
-            allEmployee.add(e.getName());
+    private LinkedList<Employee> getEmployeesWithout(LinkedList<String> namesInTemplate){
+        LinkedList<Employee> employeeWithout = new LinkedList<>();
+        boolean flag = false;
+        for (Employee employee : employees) {
+            for (String name : namesInTemplate) {
+                if (employee.getName().equalsIgnoreCase(name)) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                employeeWithout.add(employee);
+            }
+            flag=false;
         }
-        return allEmployee;
+        return employeeWithout;
     }
 
     private double[] getAllSalaryByNameAndDate(Date date, String name){

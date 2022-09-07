@@ -1,18 +1,14 @@
 package com.gui.controller;
 
-import com.gui.minitask_gui.CreateMessBox;
-import com.gui.minitask_gui.EmployeeSalaryManager;
-import com.gui.minitask_gui.GlobalHandler;
-import com.gui.minitask_gui.SalaryDetail;
+import com.gui.minitask_gui.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -88,22 +84,25 @@ public class UpdateTemplatePopupController implements Initializable {
     public void eUpdateBtnClicked() {
         GlobalHandler.chosenWeekTemplate.clear();
         GlobalHandler.withoutEmployee.clear();
+        //Set week to update
         updateBtn.setOnAction(e -> {
             for (int i = 0; i < 4; i++) {
                 if (checkBoxes.get(i).isSelected()) {
                     GlobalHandler.chosenWeekTemplate.add(i + 1);
                 }
             }
+            //If week list empty -> err
             if (GlobalHandler.chosenWeekTemplate.isEmpty()) {
                 CreateMessBox.popupBoxMess("Please choose a week to update!", 2);
             } else {
+                //Open file after update (only 1 month)
                 if (checkBoxIsOpen.isSelected()) {
                     GlobalHandler.isOpenAfterUpdateTemplate = true;
                 } else {
                     GlobalHandler.isOpenAfterUpdateTemplate = false;
                 }
                 for (Integer month : GlobalHandler.chosenMonthTemplate) {
-                    String path = GlobalHandler.getRootDir() + GlobalHandler.yearToUpdateTemplate + "\\" + GlobalHandler.getMonthName(month) + "\\";
+                    String pathMonth = GlobalHandler.getRootDir() + GlobalHandler.yearToUpdateTemplate + "\\" + GlobalHandler.getMonthName(month) + "\\";
                     if (usingWeekRadio.isSelected()) {
                         if (!GlobalHandler.checkMonthExistedCreate(GlobalHandler.yearToUpdateTemplate, month)) {
                             CreateMessBox.popupBoxMessContent("Not Found Data Input!", "Please Create Data File In " + GlobalHandler.yearToUpdateTemplate + " - " + GlobalHandler.getMonthName(month) + " Folder\n" +
@@ -118,15 +117,21 @@ public class UpdateTemplatePopupController implements Initializable {
                         }
                     }
                     // UPDATE
-                    updateHandle(path, month);
+                    updateHandle(pathMonth, month);
                 }
                 //SHOW notification
                 while (true) {
                     if (threads.size() == GlobalHandler.chosenMonthTemplate.size()) {
                         if (GlobalHandler.checkThreadsIsDone(threads)) {
-                            Set<String> without = new HashSet<>(GlobalHandler.withoutEmployee);
+                            Set<Employee> without = new HashSet<>(GlobalHandler.withoutEmployee);
                             if(!without.isEmpty()){
-                                CreateMessBox.popupBoxMessContent("Some employees do not exist in the template file!", without.toString(), 1);
+                                VBox vBox = new VBox();
+                                Label subHeader = new Label("Some employees do not exist in the template file!");
+                                TextArea textArea = new TextArea(getWithoutEmployeesDetail());
+                                vBox.getChildren().addAll(subHeader,textArea);
+                                CreateMessBox.popupBoxWithOtherPane("Success",vBox);
+                            }else {
+                                CreateMessBox.popupBoxMess("Success",1);
                             }
                             break;
                         }
@@ -139,14 +144,27 @@ public class UpdateTemplatePopupController implements Initializable {
         });
     }
 
+    private String getWithoutEmployeesDetail(){
+        StringBuilder content= new StringBuilder();
+        for(Employee employee: GlobalHandler.withoutEmployee){
+            content.append(employee.getName().toUpperCase()).append(":\n");
+            for(SalaryOfDate s: employee.getAllSalaryEachDay()){
+                content.append("\t").append(new SimpleDateFormat("dd/MM/yyyy").format(s.getDate())).append("\n");
+            }
+        }
+        return content.toString();
+    }
+
     private void updateHandle(String path, int month) {
         EmployeeSalaryManager e = new EmployeeSalaryManager();
+        //Year
         int year = GlobalHandler.yearToUpdateTemplate;
+        //Get Template file
         String templatePath = GlobalHandler.srcTemplate;
-        String yearFolder = GlobalHandler.getRootDir() + year + "\\";
         Path src = Paths.get(templatePath);
         Path des = Paths.get(path + "Salary_Using_Template.xlsx");
-        //If exist
+        Path defaultSrc = Paths.get("./Template.xlsx");
+        //If using default template
         if (GlobalHandler.checkFileExist(new File(path + "Salary_Using_Template.xlsx"))) {
             Path backup = Paths.get(path + "\\" + "Salary_Using_Template_Backup" + getNumOfBackupFile(path) + ".xlsx");
             //If using new template
@@ -160,7 +178,8 @@ public class UpdateTemplatePopupController implements Initializable {
                 }
             } else if (GlobalHandler.usingTemplateFrom == 2) {
                 try {
-                    Files.copy(des, backup);
+                    Files.move(des, backup);
+                    Files.copy(defaultSrc,des);
                 } catch (IOException ex) {
                     CreateMessBox.popupBoxMess("Copy Backup File Fail!", 2);
                     return;
@@ -169,7 +188,12 @@ public class UpdateTemplatePopupController implements Initializable {
             //If not exist
         } else {
             try {
-                Files.copy(src, des);
+                if(GlobalHandler.usingTemplateFrom==1){
+                    Files.copy(src, des);
+                } else if (GlobalHandler.usingTemplateFrom == 2) {
+                    Files.copy(defaultSrc,des);
+
+                }
             } catch (IOException ex) {
                 CreateMessBox.popupBoxMess("Copy template file fail!", 2);
                 return;

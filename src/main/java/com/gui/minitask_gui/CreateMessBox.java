@@ -1,8 +1,10 @@
 package com.gui.minitask_gui;
 
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Pane;
 
 import java.util.Optional;
 
@@ -70,7 +72,14 @@ public class CreateMessBox {
         alert.showAndWait();
     }
 
+    public static void popupBoxWithOtherPane(String header, Node node){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(header);
 
+            alert.getDialogPane().setContent(node);
+            alert.showAndWait();
+    }
 
     }
 

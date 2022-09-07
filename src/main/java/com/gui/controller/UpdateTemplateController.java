@@ -212,45 +212,49 @@ public class UpdateTemplateController implements Initializable {
 
     public void eUpdateBtnClicked(){
         updateBtn.setOnAction(e->{
-            String yearFolderPath = GlobalHandler.getRootDir()+yearField.getText()+"\\";
             String[] templatePath = pathTemplateTextfield.getText().strip().toLowerCase().split("\\.");
             int count=0;
             LinkedList<Integer> selectedMonth = new LinkedList<>() ;
+            //How many month are selected
             for (int i = 0; i < checkBoxes.size(); i++) {
                 if (checkBoxes.get(i).isSelected()) {
                     count++;
+                    //add selected month to list
                     selectedMonth.add(i+1);
                 }
             }
+            //Return if list empty
             if (count == 0) {
                 CreateMessBox.popupBoxMess("Please Check 1 Month To Create!", 2);
                 return;
             }
-
+            // Using default template
             if(!checkBoxUsingExistTemplate.isSelected()){
+                //wrong path
                 if(templatePath.length<=1){
                     CreateMessBox.popupBoxMess("Invalid Template File!",2);
                     return;
                 }
+                //wrong file extension
                 if(!templatePath[(templatePath.length-1)].equalsIgnoreCase("xlsx")){
                     CreateMessBox.popupBoxMess("Invalid Template File!",2);
                     return;
                 }
+                //Check final
                 if(!GlobalHandler.checkFileExist(new File(pathTemplateTextfield.getText()))){
                     CreateMessBox.popupBoxMess("Invalid Template File!",2);
                     return;
                 }
                 //Which data to use
-                GlobalHandler.usingTemplateFrom =1;
+                GlobalHandler.usingTemplateFrom = 1;
+                //Using another template
             }else {
-                for(Integer c: selectedMonth){
-                    if(!GlobalHandler.checkFileExist(new File(yearFolderPath+GlobalHandler.getMonthName(c)+"\\"+"Salary_Using_Template.xlsx"))){
-                        CreateMessBox.popupBoxMess("Template File Not Found In "+ yearField.getText() + " - " + GlobalHandler.getMonthName(c) + " Folder\n",2);
+                    if(!GlobalHandler.checkFileExist(new File("./Template.xlsx"))){
+                        CreateMessBox.popupBoxMess("Template File Not Found!",2);
                         return;
                     }
-                }
                 //Which data to use
-                GlobalHandler.usingTemplateFrom =2;
+                GlobalHandler.usingTemplateFrom = 2;
             }
             GlobalHandler.chosenMonthTemplate.clear();
             GlobalHandler.chosenMonthTemplate = selectedMonth;
@@ -286,6 +290,10 @@ public class UpdateTemplateController implements Initializable {
     }
 
     public void eUsingExistTemplateCheckboxSelected(){
+        if(checkBoxUsingExistTemplate.isSelected()){
+            pathTemplateTextfield.setDisable(true);
+            browseBtn.setDisable(true);
+        }
         checkBoxUsingExistTemplate.setOnMouseClicked(e ->{
             if(checkBoxUsingExistTemplate.isSelected()){
                 pathTemplateTextfield.setDisable(true);

@@ -33,7 +33,7 @@ public class GlobalHandler {
     //Var of UpdateTemplateScene
     public static LinkedList<Integer> chosenMonthTemplate = new LinkedList<>();
     public static ArrayList<Integer> chosenWeekTemplate = new ArrayList<>();
-    public static LinkedList<String> withoutEmployee = new LinkedList<>();
+    public static LinkedList<Employee> withoutEmployee = new LinkedList<>();
     public static boolean isOpenAfterUpdateTemplate = true;
     public static int usingTemplateFrom = 0; //1=new, 2=exist
     public static int yearToUpdateTemplate =0;

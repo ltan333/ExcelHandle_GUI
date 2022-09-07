@@ -22,7 +22,7 @@ public class Main extends Application {
         }else {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainScene.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Salary Management");
+            stage.setTitle("Salary Management v1.3.0");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setResizable(false);

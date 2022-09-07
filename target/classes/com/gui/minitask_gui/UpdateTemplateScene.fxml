@@ -69,7 +69,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <CheckBox fx:id="checkBoxUsingExistTemplate" layoutX="417.0" layoutY="42.0" mnemonicParsing="false" text="Using template exist in same folder" />
+                  <CheckBox fx:id="checkBoxUsingExistTemplate" layoutX="417.0" layoutY="42.0" mnemonicParsing="false" selected="true" text="Using default template" />
                </children>
             </AnchorPane>
             <Label prefHeight="55.0" prefWidth="690.0" styleClass="title" stylesheets="@../css/style.css" text="Month" textFill="#fafafa">

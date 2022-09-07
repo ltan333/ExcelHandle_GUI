@@ -122,7 +122,7 @@
                   <Separator prefWidth="200.0" />
                   <AnchorPane prefHeight="333.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="39.0" layoutY="194.0" text="Root Directory" textFill="WHITE">
+                        <Label layoutX="39.0" layoutY="173.0" text="Root Directory" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -134,16 +134,21 @@
                               <Font name="System Bold Italic" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="rootPathField" alignment="TOP_LEFT" layoutX="7.0" layoutY="233.0" prefHeight="60.0" prefWidth="183.0" styleClass="link" stylesheets="@../css/style.css" text="D:\Data\Java_IntelliJ\MiniTask_GUI\src\main\resources\com\gui\icon" textFill="WHITE" wrapText="true">
+                        <Label fx:id="rootPathField" alignment="TOP_LEFT" layoutX="7.0" layoutY="212.0" prefHeight="60.0" prefWidth="183.0" styleClass="link" stylesheets="@../css/style.css" text="D:\Data\Java_IntelliJ\MiniTask_GUI\src\main\resources\com\gui\icon" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="changeBtn" layoutX="69.0" layoutY="294.0" mnemonicParsing="false" style="-fx-focus-traversable: false;" stylesheets="@../css/style.css" text="Change">
+                        <Button fx:id="changeBtn" layoutX="69.0" layoutY="273.0" mnemonicParsing="false" style="-fx-focus-traversable: false;" stylesheets="@../css/style.css" text="Change">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Label layoutX="62.0" layoutY="310.0" prefHeight="18.0" prefWidth="75.0" text="version 1.3.0" textFill="WHITE">
+                           <font>
+                              <Font name="Book Antiqua" size="13.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>
