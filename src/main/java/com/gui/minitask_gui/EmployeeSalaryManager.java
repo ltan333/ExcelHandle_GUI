@@ -516,12 +516,20 @@ public class EmployeeSalaryManager {
                     break;
                 }
             }
-            if (!flag) {
+            if (!flag && !GlobalHandler.withoutEmployee.contains(employee)) {
                 employeeWithout.add(employee);
             }
             flag=false;
         }
         return employeeWithout;
+    }
+
+    private boolean isNameContain(String name, LinkedList<Employee> containList){
+        for(Employee e:GlobalHandler.withoutEmployee){
+            if(name.equalsIgnoreCase(e.getName()))
+                return true;
+        }
+        return false;
     }
 
     private double[] getAllSalaryByNameAndDate(Date date, String name){
